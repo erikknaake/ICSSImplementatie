@@ -40,6 +40,8 @@ De ICSS tool moet uiteraard een parser component bevatten. Deze parser realiseer
 * bestudeer de AST voordat je met de parser aan de slag gaat; je zult zien dat de parser en de AST qua structuur overeenkomsten hebben. Als je die inziet, is het construeren van de parser eenvoudiger
 * Aan het project zijn (unit)tests toegevoegd. Met deze tests kun je controleren of jouw parser de juiste AST opbouwt. 
 
+Per onderdeel PA kun je 0, 5 of 10 punten krijgen. Voor de "Musts" dien je 10 punten per onderdeel te scoren.
+
 ID  |Omschrijving|Prio |Punten
 ----|--------------------------------------------------------------------|------|------
 PA01|Implementeer een parser plus listener die AST’s kan maken voor ICSS documenten die “eenvoudige opmaak” kan parseren, zoals beschreven in de taalbeschrijving. In `level0.icss` vind je een voorbeeld van ICSS code die je moet kunnen parseren.  `testParseLevel0()` slaagt.|Must  |10
@@ -50,6 +52,8 @@ PA04|Breid je grammatica en listener uit zodat je if-statements aankunt. In `lev
 ### 4.3 Checken (20 punten)
 Tijdens het compileren van ICSS naar CSS willen we eerst controleren of de code naast syntactisch correct, ook semantisch correct is. Dit doe je door de checker component (`nl.han.ica.icss.checker.Checker`) te implementeren. Als je fouten detecteert in de AST kun je deze in de knopen van de AST opslaan met de
 `setError` methode.
+
+Per CH onderdeel kun je 0 of 4 punten krijgen.
 
 ID  |Omschrijving|Prio |Punten
 ----|--------------------------------------------------------------------|------|------
@@ -65,6 +69,7 @@ Als je deze deeleisen geimplementeerd hebt kun je nu ook controleren of de input
 ### 4.4 Transformeren (20 punten)
 Om het genereren van de code makkelijker te maken gaan we de AST in een aantal stappen vereenvoudigen. Hiervoor zijn een tweetal transformaties gedefinieerd in `nl.han.ica.icss.transform`.
  
+Per TR onderdeel kun je 0, 5 of 10 punten krijgen.
 
 ID  |Omschrijving|Prio |Punten
 ----|--------------------------------------------------------------------|------|------
@@ -73,6 +78,8 @@ TR02|Implementeer de `RemoveIf `transformatie. Deze transformatie verwijdert all
 
 ### 4.5 Genereren (10 punten)
 De laatste stap is het generereren van CSS2-compliant code vanuit ICSS code. Dit doe je door een tree- traversal op de volledig getransformeerde AST te doen om een string op te bouwen. 
+
+Per GE onderdeel kun je 0 of 5 punten krijgen.
 
 ID  |Omschrijving|Prio |Punten
 ----|--------------------------------------------------------------------|------|------
