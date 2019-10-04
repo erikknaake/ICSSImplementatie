@@ -41,46 +41,102 @@ ASSIGNMENT_OPERATOR: ':=';
 
 //--- PARSER: ---
 
-stylesheet: decleration* EOF;
+//stylesheet: decleration* EOF;
+//
+//decleration: stylerule
+//    | variable_declaration;
+//
+//style_block: OPEN_BRACE statements CLOSE_BRACE;
+//
+//stylerule: selector style_block;
+//
+//statements: statement*;
+//
+//statement: property_name COLON expression SEMICOLON #property_decleration
+//    | variable_declaration #variable_dec
+//    | if_clause #if;
+//
+//property_name: LOWER_IDENT;
+//
+//expression: literal
+//    | variable
+//    | expression PLUS expression
+//    | expression MIN expression
+//    | expression MUL expression;
+//
+//variable_declaration: variable ASSIGNMENT_OPERATOR expression SEMICOLON;
+//
+//if_clause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE style_block+;
+//
+//variable: CAPITAL_IDENT;
+//
+//boolean_literal: TRUE
+//    | FALSE;
+//
+//size_literal: PIXELSIZE #pixel_literal
+//    | PERCENTAGE #percentage_literal;
+//
+//literal: COLOR #color
+//    | boolean_literal #boolean
+//    | size_literal #size
+//    | SCALAR #scalar;
+//
+//selector: ID_IDENT #id
+//    | CLASS_IDENT #class
+//    | LOWER_IDENT #tag;
 
-decleration: stylerule
-    | variable_declaration;
 
-style_block: OPEN_BRACE statements CLOSE_BRACE;
+stylesheet: body EOF;
 
-stylerule: selector style_block;
+body: statement*;
+statement: variable_assignment
+    | stylerule
+    | decleration
+    | if_clause;
 
-statements: statement*;
 
-statement: property_name COLON expression SEMICOLON #property_decleration
-    | variable_declaration #variable_dec
-    | if_clause #if;
+bool_literal: TRUE
+    | FALSE;
+color_literal: COLOR;
+percentage_literal: PERCENTAGE;
+pixel_literal: PIXELSIZE;
+scalar_literal: SCALAR;
+
+literal: bool_literal
+    | color_literal
+    | percentage_literal
+    | pixel_literal
+    | scalar_literal;
+
+add_operation: PLUS;
+multiply_operation: MUL;
+subtract_operation: MIN;
+
+operation: add_operation
+    | multiply_operation
+    | subtract_operation;
+
+expression: expression operation expression
+    | literal
+    | variable_reference;
+
+
+class_selector: CLASS_IDENT;
+id_selector: ID_IDENT;
+tag_selector: LOWER_IDENT;
+
+selector: class_selector
+    | id_selector
+    | tag_selector;
 
 property_name: LOWER_IDENT;
+decleration: property_name COLON expression SEMICOLON;
 
-expression: literal
-    | variable
-    | expression PLUS expression
-    | expression MIN expression
-    | expression MUL expression;
+scope: OPEN_BRACE body CLOSE_BRACE;
 
-variable_declaration: variable ASSIGNMENT_OPERATOR expression SEMICOLON;
+if_clause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE scope;
 
-if_clause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE style_block+;
+stylerule: selector scope;
 
-variable: CAPITAL_IDENT;
-
-boolean_literal: TRUE
-    | FALSE;
-
-size_literal: PIXELSIZE #pixel_literal
-    | PERCENTAGE #percentage_literal;
-
-literal: COLOR #color
-    | boolean_literal #boolean
-    | size_literal #size
-    | SCALAR #scalar;
-
-selector: ID_IDENT #id
-    | CLASS_IDENT #class
-    | LOWER_IDENT #tag;
+variable_assignment: variable_reference ASSIGNMENT_OPERATOR expression SEMICOLON;
+variable_reference: CAPITAL_IDENT;
