@@ -52,9 +52,9 @@ stylerule: selector style_block;
 
 statements: statement*;
 
-statement: property_name COLON expression SEMICOLON
-    | variable_declaration
-    | if_clause;
+statement: property_name COLON expression SEMICOLON #property_decleration
+    | variable_declaration #variable_dec
+    | if_clause #if;
 
 property_name: LOWER_IDENT;
 
@@ -73,13 +73,14 @@ variable: CAPITAL_IDENT;
 boolean_literal: TRUE
     | FALSE;
 
-literal: COLOR
-    | boolean_literal
-    | PIXELSIZE
-    | PERCENTAGE
+size_literal: PIXELSIZE #pixel_literal
+    | PERCENTAGE #percentage_literal;
 
-    | SCALAR;
+literal: COLOR #color
+    | boolean_literal #boolean
+    | size_literal #size
+    | SCALAR #scalar;
 
-selector: ID_IDENT
-    | CLASS_IDENT
-    | LOWER_IDENT;
+selector: ID_IDENT #id
+    | CLASS_IDENT #class
+    | LOWER_IDENT #tag;
