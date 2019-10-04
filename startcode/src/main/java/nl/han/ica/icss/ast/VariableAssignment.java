@@ -12,6 +12,8 @@ public class VariableAssignment extends ASTNode {
 	public VariableReference name;
 	public Expression expression;
 
+	public VariableAssignment() {}
+
 	// Added constructor
 	public VariableAssignment(Expression expression, VariableReference variableReference) {
 		this.name = variableReference;
