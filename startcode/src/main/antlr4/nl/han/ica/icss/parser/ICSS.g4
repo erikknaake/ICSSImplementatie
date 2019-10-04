@@ -1,5 +1,6 @@
 grammar ICSS;
 
+
 //--- LEXER: ---
 // IF support:
 IF: 'if';
@@ -40,4 +41,45 @@ ASSIGNMENT_OPERATOR: ':=';
 
 //--- PARSER: ---
 
-stylesheet: EOF;
+stylesheet: decleration* EOF;
+
+decleration: stylerule
+    | variable_declaration;
+
+style_block: OPEN_BRACE statements CLOSE_BRACE;
+
+stylerule: selector style_block;
+
+statements: statement*;
+
+statement: property_name COLON expression SEMICOLON
+    | variable_declaration
+    | if_clause;
+
+property_name: LOWER_IDENT;
+
+expression: literal
+    | variable
+    | expression PLUS expression
+    | expression MIN expression
+    | expression MUL expression;
+
+variable_declaration: variable ASSIGNMENT_OPERATOR expression SEMICOLON;
+
+if_clause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE style_block+;
+
+variable: CAPITAL_IDENT;
+
+boolean_literal: TRUE
+    | FALSE;
+
+literal: COLOR
+    | boolean_literal
+    | PIXELSIZE
+    | PERCENTAGE
+
+    | SCALAR;
+
+selector: ID_IDENT
+    | CLASS_IDENT
+    | LOWER_IDENT;
