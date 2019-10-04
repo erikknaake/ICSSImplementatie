@@ -52,7 +52,20 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.push(new ScalarLiteral(ctx.getText()));
 	}
 
+	@Override
+	public void exitId_selector(ICSSParser.Id_selectorContext ctx) {
+		currentContainer.push(new IdSelector(ctx.getText()));
+	}
 
+	@Override
+	public void exitClass_selector(ICSSParser.Class_selectorContext ctx) {
+		currentContainer.push(new ClassSelector(ctx.getText()));
+	}
+
+	@Override
+	public void exitTag_selector(ICSSParser.Tag_selectorContext ctx) {
+		currentContainer.push(new TagSelector(ctx.getText()));
+	}
 
 	@Override
 	public void exitStylesheet(ICSSParser.StylesheetContext ctx) {
