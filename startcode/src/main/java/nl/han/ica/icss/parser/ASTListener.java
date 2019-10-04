@@ -32,32 +32,12 @@ public class ASTListener extends ICSSBaseListener {
         return ast;
     }
 
-	@Override
-	public void exitBool_literal(ICSSParser.Bool_literalContext ctx) {
-		currentContainer.push(new BoolLiteral(ctx.getText()));
-	}
+    @Override
+    public void exitLiteral(ICSSParser.LiteralContext ctx) {
+        currentContainer.push(LiteralFactory.make(ctx));
+    }
 
-	@Override
-	public void exitColor_literal(ICSSParser.Color_literalContext ctx) {
-		currentContainer.push(new ColorLiteral(ctx.getText()));
-	}
-
-	@Override
-	public void exitPercentage_literal(ICSSParser.Percentage_literalContext ctx) {
-		currentContainer.push(new PercentageLiteral(ctx.getText()));
-	}
-
-	@Override
-	public void exitPixel_literal(ICSSParser.Pixel_literalContext ctx) {
-		currentContainer.push(new PixelLiteral(ctx.getText()));
-	}
-
-	@Override
-	public void exitScalar_literal(ICSSParser.Scalar_literalContext ctx) {
-		currentContainer.push(new ScalarLiteral(ctx.getText()));
-	}
-
-	@Override
+    @Override
 	public void exitId_selector(ICSSParser.Id_selectorContext ctx) {
 		currentContainer.push(new IdSelector(ctx.getText()));
 	}
@@ -84,6 +64,7 @@ public class ASTListener extends ICSSBaseListener {
 
 	@Override
 	public void exitStylerule(ICSSParser.StyleruleContext ctx) {
+
 		ArrayList<ASTNode> body =  new ArrayList<>();
 		// TODO: kijken of dit mooier kan
 		Iterator<ASTNode> iterator = currentContainer.iterator();
