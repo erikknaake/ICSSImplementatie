@@ -1,6 +1,8 @@
 package nl.han.ica.icss.parser;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Stack;
 import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.literals.*;
@@ -65,6 +67,48 @@ public class ASTListener extends ICSSBaseListener {
 	@Override
 	public void exitTag_selector(ICSSParser.Tag_selectorContext ctx) {
 		currentContainer.push(new TagSelector(ctx.getText()));
+	}
+
+	@Override
+	public void exitProperty_name(ICSSParser.Property_nameContext ctx) {
+		currentContainer.push(new PropertyName(ctx.getText()));
+	}
+
+	@Override
+	public void exitDeclaration(ICSSParser.DeclarationContext ctx) {
+		currentContainer.push(new Declaration((Expression) currentContainer.pop(), (PropertyName) currentContainer.pop()));
+//		Declaration declaration = new Declaration(ctx.getChild(0).getText());
+//		declaration.addChild(currentContainer.pop());
+//		currentContainer.push(declaration);
+	}
+
+	@Override
+	public void exitStylerule(ICSSParser.StyleruleContext ctx) {
+		ArrayList<ASTNode> body =  new ArrayList<>();
+
+		Iterator<ASTNode> iterator = currentContainer.iterator();
+		Selector selector = null;
+		while(iterator.hasNext()) {
+			ASTNode node = iterator.next();
+			if(node instanceof Selector)
+				selector = (Selector) node;
+			else if(selector != null) {
+				body.add(node);
+				iterator.remove();
+			}
+		}
+		currentContainer.pop();
+		currentContainer.push(new Stylerule(selector, body));
+	}
+
+	@Override
+	public void exitVariable_reference(ICSSParser.Variable_referenceContext ctx) {
+		currentContainer.push(new VariableReference(ctx.getText()));
+	}
+
+	@Override
+	public void exitVariable_assignment(ICSSParser.Variable_assignmentContext ctx) {
+		currentContainer.push(new VariableAssignment((Expression) currentContainer.pop(), (VariableReference) currentContainer.pop()));
 	}
 
 	@Override

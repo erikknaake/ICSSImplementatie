@@ -91,7 +91,7 @@ stylesheet: body EOF;
 body: statement*;
 statement: variable_assignment
     | stylerule
-    | decleration
+    | declaration
     | if_clause;
 
 
@@ -130,7 +130,7 @@ selector: class_selector
     | tag_selector;
 
 property_name: LOWER_IDENT;
-decleration: property_name COLON expression SEMICOLON;
+declaration: property_name COLON expression SEMICOLON;
 
 scope: OPEN_BRACE body CLOSE_BRACE;
 

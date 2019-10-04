@@ -18,7 +18,9 @@ public class Declaration extends ASTNode {
 		this.property = new PropertyName(property);
 	}
 
+	// Added constructor
 	public Declaration(Expression expression, PropertyName property) {
+		super();
 		this.property = property;
 		this.expression = expression;
 	}
