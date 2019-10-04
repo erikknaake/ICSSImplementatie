@@ -38,21 +38,11 @@ public class ASTListener extends ICSSBaseListener {
     }
 
     @Override
-	public void exitId_selector(ICSSParser.Id_selectorContext ctx) {
-		currentContainer.push(new IdSelector(ctx.getText()));
-	}
+    public void exitSelector(ICSSParser.SelectorContext ctx) {
+        currentContainer.push(SelectorFactory.make(ctx));
+    }
 
-	@Override
-	public void exitClass_selector(ICSSParser.Class_selectorContext ctx) {
-		currentContainer.push(new ClassSelector(ctx.getText()));
-	}
-
-	@Override
-	public void exitTag_selector(ICSSParser.Tag_selectorContext ctx) {
-		currentContainer.push(new TagSelector(ctx.getText()));
-	}
-
-	@Override
+    @Override
 	public void exitProperty_name(ICSSParser.Property_nameContext ctx) {
 		currentContainer.push(new PropertyName(ctx.getText()));
 	}
