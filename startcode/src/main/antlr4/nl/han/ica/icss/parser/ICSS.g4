@@ -41,51 +41,6 @@ ASSIGNMENT_OPERATOR: ':=';
 
 //--- PARSER: ---
 
-//stylesheet: decleration* EOF;
-//
-//decleration: stylerule
-//    | variable_declaration;
-//
-//style_block: OPEN_BRACE statements CLOSE_BRACE;
-//
-//stylerule: selector style_block;
-//
-//statements: statement*;
-//
-//statement: property_name COLON expression SEMICOLON #property_decleration
-//    | variable_declaration #variable_dec
-//    | if_clause #if;
-//
-//property_name: LOWER_IDENT;
-//
-//expression: literal
-//    | variable
-//    | expression PLUS expression
-//    | expression MIN expression
-//    | expression MUL expression;
-//
-//variable_declaration: variable ASSIGNMENT_OPERATOR expression SEMICOLON;
-//
-//if_clause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE style_block+;
-//
-//variable: CAPITAL_IDENT;
-//
-//boolean_literal: TRUE
-//    | FALSE;
-//
-//size_literal: PIXELSIZE #pixel_literal
-//    | PERCENTAGE #percentage_literal;
-//
-//literal: COLOR #color
-//    | boolean_literal #boolean
-//    | size_literal #size
-//    | SCALAR #scalar;
-//
-//selector: ID_IDENT #id
-//    | CLASS_IDENT #class
-//    | LOWER_IDENT #tag;
-
-
 stylesheet: body EOF;
 
 body: statement*;
@@ -108,15 +63,18 @@ literal: bool_literal
     | pixel_literal
     | scalar_literal;
 
-add_operation: PLUS;
 multiply_operation: MUL;
+add_operation: PLUS;
 subtract_operation: MIN;
 
-operation: add_operation
-    | multiply_operation
+// Lijkt niet te werken met volgordelijkheid
+operation: multiply_operation
+    | add_operation
     | subtract_operation;
 
-expression: expression operation expression
+expression: left=expression multiply_operation right=expression
+    | left=expression add_operation right=expression
+    | left=expression subtract_operation right=expression
     | literal
     | variable_reference;
 

@@ -33,23 +33,18 @@ public class ASTListener extends ICSSBaseListener {
     }
 
     @Override
-    public void exitLiteral(ICSSParser.LiteralContext ctx) {
-        currentContainer.push(LiteralFactory.make(ctx));
-    }
-
-    @Override
     public void exitSelector(ICSSParser.SelectorContext ctx) {
         currentContainer.push(SelectorFactory.make(ctx));
     }
 
-    @Override
-	public void exitProperty_name(ICSSParser.Property_nameContext ctx) {
-		currentContainer.push(new PropertyName(ctx.getText()));
+	@Override
+	public void exitExpression(ICSSParser.ExpressionContext ctx) {
+		ExpressionFactory.make(ctx);
 	}
 
 	@Override
 	public void exitDeclaration(ICSSParser.DeclarationContext ctx) {
-		currentContainer.push(new Declaration((Expression) currentContainer.pop(), (PropertyName) currentContainer.pop()));
+	    currentContainer.push(DeclarationFactory.make(ctx));
 	}
 
 	@Override
@@ -74,13 +69,8 @@ public class ASTListener extends ICSSBaseListener {
 	}
 
 	@Override
-	public void exitVariable_reference(ICSSParser.Variable_referenceContext ctx) {
-		currentContainer.push(new VariableReference(ctx.getText()));
-	}
-
-	@Override
 	public void exitVariable_assignment(ICSSParser.Variable_assignmentContext ctx) {
-		currentContainer.push(new VariableAssignment((Expression) currentContainer.pop(), (VariableReference) currentContainer.pop()));
+	    currentContainer.push(VariableAssignmentFactory.make(ctx));
 	}
 
 	@Override
@@ -88,26 +78,4 @@ public class ASTListener extends ICSSBaseListener {
 		ast.setRoot(new Stylesheet(new ArrayList<>(currentContainer)));
 	}
 
-    @Override
-    public void exitOperation(ICSSParser.OperationContext ctx) {
-        Operation operation = (Operation) currentContainer.pop();
-        operation.lhs = (Expression) currentContainer.pop();
-        operation.rhs = (Expression) currentContainer.pop();
-        currentContainer.push(operation);
-    }
-
-    @Override
-	public void exitAdd_operation(ICSSParser.Add_operationContext ctx) {
-		currentContainer.push(new AddOperation());
-	}
-
-	@Override
-	public void exitMultiply_operation(ICSSParser.Multiply_operationContext ctx) {
-		currentContainer.push(new MultiplyOperation());
-	}
-
-	@Override
-	public void exitSubtract_operation(ICSSParser.Subtract_operationContext ctx) {
-		currentContainer.push(new SubtractOperation());
-	}
 }
