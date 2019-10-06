@@ -13,15 +13,15 @@ public class NoOperationsOnColorsChecker implements IChecker {
         if(node instanceof Operation) {
             Operation operation = (Operation) node;
             if(TypeResolver.resolve(operation.lhs) == ExpressionType.COLOR) {
-                setErrorOnColorNode((ColorLiteral) operation.lhs);
+                setErrorOnColorNode(operation);
             }
             if(TypeResolver.resolve(operation.rhs) == ExpressionType.COLOR) {
-                setErrorOnColorNode((ColorLiteral) operation.lhs);
+                setErrorOnColorNode(operation);
             }
         }
     }
 
-    private void setErrorOnColorNode(ColorLiteral colorLiteral) {
-        colorLiteral.setError("A color literal can not be used in an operation");
+    private void setErrorOnColorNode(Operation operation) {
+        operation.setError("A color literal can not be used in an operation");
     }
 }

@@ -17,6 +17,10 @@ public class DeclaredVariables {
         declaredVariables.put(variableName, type);
     }
 
+    public void clear() {
+        declaredVariables.clear();
+    }
+
     /**
      * Returns the type of the declared variable
      * Returns null when the variable is not defined

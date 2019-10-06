@@ -13,6 +13,10 @@ public class VariableDefiner {
         declaredVariables = DeclaredVariables.getInstance();
     }
 
+    public void clear() {
+        declaredVariables.clear();
+    }
+
     public static VariableDefiner getInstance() {
         if(instance == null)
             instance = new VariableDefiner();

@@ -10,6 +10,7 @@ import java.util.List;
 public class Checker {
     private List<IChecker> checkers = new ArrayList<>();
     private VariableDefiner variableDefiner = VariableDefiner.getInstance();
+
     public Checker(List<IChecker> checkers) {
         this.checkers = checkers;
     }
@@ -19,9 +20,11 @@ public class Checker {
         checkers.add(new NoOperationsOnColorsChecker());
         checkers.add(new ConditionalIfChecker());
         checkers.add(new DeclarationTypeChecker());
+        checkers.add(new OperandTypeChecker());
     }
 
     public void check(AST ast) {
+        variableDefiner.clear();
         check(ast.root);
     }
 

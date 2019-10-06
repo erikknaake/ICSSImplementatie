@@ -10,6 +10,13 @@ public class CheckConditionalIfFixtures {
 
     public static AST conditionalIf() {
         Stylesheet stylesheet = new Stylesheet();
+
+        stylesheet.addChild((new VariableAssignment())
+                .addChild(new VariableReference("UseLinkColor"))
+                .addChild(new BoolLiteral(false))
+        );
+
+
         stylesheet.addChild((new Stylerule())
                 .addChild(new TagSelector("p"))
                 .addChild((new Declaration("background-color"))
