@@ -1,18 +1,15 @@
 package nl.han.ica.icss.checker;
 
+import nl.han.ica.icss.ast.AST;
+import nl.han.ica.icss.ast.ASTNode;
+import nl.han.ica.icss.checker.typesystem.VariableDefiner;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
-import nl.han.ica.icss.ast.*;
-import nl.han.ica.icss.ast.types.*;
-
 public class Checker {
-
-    private LinkedList<HashMap<String, ExpressionType>> variableTypes;
     private List<IChecker> checkers = new ArrayList<>();
-
+    private VariableDefiner variableDefiner = VariableDefiner.getInstance();
     public Checker(List<IChecker> checkers) {
         this.checkers = checkers;
     }
@@ -20,6 +17,7 @@ public class Checker {
     public Checker() {
         checkers.add(new UndefinedVariableChecker());
         checkers.add(new NoOperationsOnColorsChecker());
+        checkers.add(new ConditionalIfChecker());
     }
 
     public void check(AST ast) {
@@ -27,6 +25,7 @@ public class Checker {
     }
 
     private void check(ASTNode node) {
+        variableDefiner.tryDefineVariable(node);
         for(IChecker checker: checkers) {
             checker.check(node);
         }

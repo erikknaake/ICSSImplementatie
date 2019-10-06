@@ -3,6 +3,8 @@ package nl.han.ica.icss.checker;
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.Operation;
 import nl.han.ica.icss.ast.literals.ColorLiteral;
+import nl.han.ica.icss.ast.types.ExpressionType;
+import nl.han.ica.icss.checker.typesystem.TypeResolver;
 
 public class NoOperationsOnColorsChecker implements IChecker {
 
@@ -10,10 +12,10 @@ public class NoOperationsOnColorsChecker implements IChecker {
     public void check(ASTNode node) {
         if(node instanceof Operation) {
             Operation operation = (Operation) node;
-            if(operation.lhs instanceof ColorLiteral) {
+            if(TypeResolver.resolve(operation.lhs) == ExpressionType.COLOR) {
                 setErrorOnColorNode((ColorLiteral) operation.lhs);
             }
-            if(operation.rhs instanceof ColorLiteral) {
+            if(TypeResolver.resolve(operation.rhs) == ExpressionType.COLOR) {
                 setErrorOnColorNode((ColorLiteral) operation.lhs);
             }
         }
