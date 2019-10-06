@@ -1,15 +1,10 @@
 package nl.han.ica.icss.checker;
 
-import nl.han.ica.icss.ast.AST;
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.Operation;
 import nl.han.ica.icss.ast.literals.ColorLiteral;
 
-public class NoOperationsOnColorsChecker extends AbstractChecker {
-    @Override
-    public void check(AST ast) {
-        check(ast.root);
-    }
+public class NoOperationsOnColorsChecker implements IChecker {
 
     @Override
     public void check(ASTNode node) {
@@ -22,7 +17,6 @@ public class NoOperationsOnColorsChecker extends AbstractChecker {
                 setErrorOnColorNode((ColorLiteral) operation.lhs);
             }
         }
-        checkChildren(node);
     }
 
     private void setErrorOnColorNode(ColorLiteral colorLiteral) {

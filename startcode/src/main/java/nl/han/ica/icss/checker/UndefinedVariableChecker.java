@@ -1,6 +1,5 @@
 package nl.han.ica.icss.checker;
 
-import nl.han.ica.icss.ast.AST;
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.VariableAssignment;
 import nl.han.ica.icss.ast.VariableReference;
@@ -8,16 +7,11 @@ import nl.han.ica.icss.ast.VariableReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndefinedVariableChecker extends AbstractChecker {
+public class UndefinedVariableChecker implements IChecker {
     private List<String> definedVariables;
 
     public UndefinedVariableChecker() {
         definedVariables = new ArrayList<>();
-    }
-
-    @Override
-    public void check(AST ast) {
-        check(ast.root);
     }
 
     @Override
@@ -29,7 +23,6 @@ public class UndefinedVariableChecker extends AbstractChecker {
                 node.setError("Variable " + ((VariableReference) node).name + " is not defined");
             }
         }
-        checkChildren(node);
     }
 
     private boolean isVariableDefined(VariableReference variableReference) {

@@ -2,13 +2,12 @@ package nl.han.ica.icss.parser.checker;
 
 import nl.han.ica.icss.ast.AST;
 import nl.han.ica.icss.checker.UndefinedVariableChecker;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class UndefinedVariableCheckerTest extends CheckerTest {
-    @BeforeEach
-    public void before() {
-        checker = new UndefinedVariableChecker();
+    @Override
+    public void addCheckers() {
+        checkers.add(new UndefinedVariableChecker());
     }
 
     @Test

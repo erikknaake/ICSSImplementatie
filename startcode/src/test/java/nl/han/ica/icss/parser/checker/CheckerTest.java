@@ -1,12 +1,25 @@
 package nl.han.ica.icss.parser.checker;
 
 import nl.han.ica.icss.ast.ASTNode;
+import nl.han.ica.icss.checker.Checker;
 import nl.han.ica.icss.checker.IChecker;
+import org.junit.jupiter.api.BeforeEach;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class CheckerTest {
-    protected IChecker checker;
+    protected Checker checker;
+    protected ArrayList<IChecker> checkers;
+    protected abstract void addCheckers();
+
+    @BeforeEach
+    public final void beforeChecker() {
+        checkers = new ArrayList<>();
+        addCheckers();
+        checker = new Checker(checkers);
+    }
 
     protected void assertNoErrors(ASTNode node) {
         if(node.hasError())
