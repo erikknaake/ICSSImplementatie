@@ -18,6 +18,7 @@ public class Checker {
         checkers.add(new UndefinedVariableChecker());
         checkers.add(new NoOperationsOnColorsChecker());
         checkers.add(new ConditionalIfChecker());
+        checkers.add(new DeclarationTypeChecker());
     }
 
     public void check(AST ast) {
