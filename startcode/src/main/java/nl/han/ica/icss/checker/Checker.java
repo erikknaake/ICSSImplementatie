@@ -2,7 +2,7 @@ package nl.han.ica.icss.checker;
 
 import nl.han.ica.icss.ast.AST;
 import nl.han.ica.icss.ast.ASTNode;
-import nl.han.ica.icss.checker.typesystem.VariableDefiner;
+import nl.han.ica.icss.typesystem.VariableDefiner;
 
 import java.util.ArrayList;
 import java.util.List;

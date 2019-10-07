@@ -2,9 +2,8 @@ package nl.han.ica.icss.checker;
 
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.Operation;
-import nl.han.ica.icss.ast.literals.ColorLiteral;
 import nl.han.ica.icss.ast.types.ExpressionType;
-import nl.han.ica.icss.checker.typesystem.TypeResolver;
+import nl.han.ica.icss.typesystem.TypeResolver;
 
 public class NoOperationsOnColorsChecker implements IChecker {
 

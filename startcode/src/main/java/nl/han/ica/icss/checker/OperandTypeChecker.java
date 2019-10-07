@@ -4,7 +4,7 @@ import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.Operation;
 import nl.han.ica.icss.ast.operations.MultiplyOperation;
 import nl.han.ica.icss.ast.types.ExpressionType;
-import nl.han.ica.icss.checker.typesystem.TypeResolver;
+import nl.han.ica.icss.typesystem.TypeResolver;
 
 public class OperandTypeChecker implements IChecker {
     @Override

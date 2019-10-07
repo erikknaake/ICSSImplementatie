@@ -1,4 +1,4 @@
-package nl.han.ica.icss.checker.typesystem;
+package nl.han.ica.icss.typesystem;
 
 import nl.han.ica.icss.ast.types.ExpressionType;
 

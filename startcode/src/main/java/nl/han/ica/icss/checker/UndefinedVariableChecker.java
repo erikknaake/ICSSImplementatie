@@ -2,7 +2,7 @@ package nl.han.ica.icss.checker;
 
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.VariableReference;
-import nl.han.ica.icss.checker.typesystem.VariableDefiner;
+import nl.han.ica.icss.typesystem.VariableDefiner;
 
 public class UndefinedVariableChecker implements IChecker {
 

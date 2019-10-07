@@ -5,7 +5,7 @@ import nl.han.ica.icss.ast.Declaration;
 import nl.han.ica.icss.ast.Expression;
 import nl.han.ica.icss.ast.PropertyName;
 import nl.han.ica.icss.ast.types.ExpressionType;
-import nl.han.ica.icss.checker.typesystem.TypeResolver;
+import nl.han.ica.icss.typesystem.TypeResolver;
 
 import java.util.HashMap;
 import java.util.Map;

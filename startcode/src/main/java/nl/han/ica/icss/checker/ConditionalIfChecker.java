@@ -3,7 +3,7 @@ package nl.han.ica.icss.checker;
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.IfClause;
 import nl.han.ica.icss.ast.types.ExpressionType;
-import nl.han.ica.icss.checker.typesystem.TypeResolver;
+import nl.han.ica.icss.typesystem.TypeResolver;
 
 public class ConditionalIfChecker implements IChecker {
     @Override
