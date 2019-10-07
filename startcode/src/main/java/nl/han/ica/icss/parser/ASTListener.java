@@ -19,6 +19,7 @@ public class ASTListener extends ICSSBaseListener {
 
 	@Override
 	public void exitStylesheet(ICSSParser.StylesheetContext ctx) {
+		ast = new AST();
 		ast.setRoot(StyleSheetFactory.make(ctx));
 	}
 }

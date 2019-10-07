@@ -22,6 +22,10 @@ COLOR: '#' [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f];
 ID_IDENT: '#' [a-z0-9\-]+;
 CLASS_IDENT: '.' [a-z0-9\-]+;
 
+PLUS: '+';
+MUL: '*';
+MIN: '-';
+
 //General identifiers
 LOWER_IDENT: [a-z0-9\-]+;
 CAPITAL_IDENT: [A-Z] [A-Za-z0-9_]*;
@@ -34,9 +38,6 @@ OPEN_BRACE: '{';
 CLOSE_BRACE: '}';
 SEMICOLON: ';';
 COLON: ':';
-PLUS: '+';
-MIN: '-';
-MUL: '*';
 ASSIGNMENT_OPERATOR: ':=';
 
 //--- PARSER: ---
@@ -66,11 +67,6 @@ literal: bool_literal
 multiply_operation: MUL;
 add_operation: PLUS;
 subtract_operation: MIN;
-
-// Lijkt niet te werken met volgordelijkheid
-operation: multiply_operation
-    | add_operation
-    | subtract_operation;
 
 expression: left=expression multiply_operation right=expression
     | left=expression add_operation right=expression
