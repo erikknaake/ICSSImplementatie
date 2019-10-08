@@ -81,8 +81,8 @@ class_selector: CLASS_IDENT;
 id_selector: ID_IDENT;
 tag_selector: LOWER_IDENT;
 
-selectors: selector COMMA selectors
-    | selector;
+selectors: selector
+    | selector COMMA selectors;
 
 selector: class_selector
     | id_selector

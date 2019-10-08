@@ -1,0 +1,8 @@
+p, html, #id, .class, a, #anotherid {
+	background-color: #ffffff;
+	width: 500px;
+}
+
+a {
+	color: #ff0000;
+}

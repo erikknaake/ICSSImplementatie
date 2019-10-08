@@ -1,7 +1,9 @@
 package nl.han.ica.icss.parser;
 
 import nl.han.ica.icss.ast.Selector;
-import nl.han.ica.icss.ast.selectors.*;
+import nl.han.ica.icss.ast.selectors.ClassSelector;
+import nl.han.ica.icss.ast.selectors.IdSelector;
+import nl.han.ica.icss.ast.selectors.TagSelector;
 
 public class SelectorFactory {
     public static Selector make(ICSSParser.SelectorContext selectorContext) {

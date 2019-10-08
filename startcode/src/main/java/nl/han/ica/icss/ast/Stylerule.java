@@ -10,10 +10,9 @@ public class Stylerule extends ASTNode {
 
     public Stylerule() { }
 
-    public Stylerule(Selector selector, ArrayList<ASTNode> body) {
+    public Stylerule(ArrayList<Selector> selectors, ArrayList<ASTNode> body) {
 
-    	this.selectors = new ArrayList<>();
-    	this.selectors.add(selector);
+    	this.selectors = selectors;
     	this.body = body;
     }
 
