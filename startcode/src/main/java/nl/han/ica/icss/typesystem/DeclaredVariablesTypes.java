@@ -4,6 +4,9 @@ import nl.han.ica.icss.ast.types.ExpressionType;
 
 import java.util.HashMap;
 
+/**
+ * Keeps track of all variable types
+ */
 public class DeclaredVariables {
     private static DeclaredVariables instance;
 
