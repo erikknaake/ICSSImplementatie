@@ -6,11 +6,11 @@ import nl.han.ica.icss.ast.VariableReference;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
 public class VariableDefiner {
-    private DeclaredVariables declaredVariables;
+    private DeclaredVariablesTypes declaredVariables;
     private static VariableDefiner instance;
 
     private VariableDefiner() {
-        declaredVariables = DeclaredVariables.getInstance();
+        declaredVariables = DeclaredVariablesTypes.getInstance();
     }
 
     public void clear() {

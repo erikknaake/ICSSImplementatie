@@ -19,7 +19,7 @@ public class TypeResolver {
         else if (expression instanceof BoolLiteral)
             return ExpressionType.BOOL;
         else if(expression instanceof VariableReference)
-            return DeclaredVariables.getInstance().getVariableType(((VariableReference) expression).name);
+            return DeclaredVariablesTypes.getInstance().getVariableType(((VariableReference) expression).name);
         else if(expression instanceof Operation) {
             // An operation is always the type of its operands, however variables may be multiplied by a scalar which doesnt tell the type,
             // so in the case the scalar is on the left hand side the right hand side must be checked for its type

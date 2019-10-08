@@ -7,12 +7,12 @@ import java.util.HashMap;
 /**
  * Keeps track of all variable types
  */
-public class DeclaredVariables {
-    private static DeclaredVariables instance;
+public class DeclaredVariablesTypes {
+    private static DeclaredVariablesTypes instance;
 
     private HashMap<String, ExpressionType> declaredVariables;
 
-    private DeclaredVariables() {
+    private DeclaredVariablesTypes() {
         declaredVariables = new HashMap<>();
     }
 
@@ -33,9 +33,9 @@ public class DeclaredVariables {
         return declaredVariables.get(variableName);
     }
 
-    public static DeclaredVariables getInstance() {
+    public static DeclaredVariablesTypes getInstance() {
         if(instance == null)
-            instance = new DeclaredVariables();
+            instance = new DeclaredVariablesTypes();
         return instance;
     }
 }

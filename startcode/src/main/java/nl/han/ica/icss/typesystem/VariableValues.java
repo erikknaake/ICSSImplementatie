@@ -12,11 +12,11 @@ public class VariableValues {
     private Map<String, Literal> variableValues;
 
     private static VariableValues instance;
-    private DeclaredVariables declaredVariables;
+    private DeclaredVariablesTypes declaredVariables;
 
     private VariableValues() {
         variableValues = new HashMap<>();
-        declaredVariables = DeclaredVariables.getInstance();
+        declaredVariables = DeclaredVariablesTypes.getInstance();
     }
 
     public static VariableValues getInstance() {
