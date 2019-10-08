@@ -307,4 +307,39 @@ public class Fixtures {
 
 		return new AST(stylesheet);
 	}
+
+
+	public static AST multiselector() {
+		Stylesheet stylesheet = new Stylesheet();
+		/*
+		p, html, #id, .class, a, #anotherid {
+			background-color: #ffffff;
+			width: 500px;
+		}
+		*/
+		stylesheet.addChild((new Stylerule())
+				.addChild(new TagSelector("p"))
+				.addChild(new TagSelector("html"))
+				.addChild(new IdSelector("#id"))
+				.addChild(new ClassSelector(".class"))
+				.addChild(new TagSelector("a"))
+				.addChild(new IdSelector("#anotherid"))
+				.addChild((new Declaration("background-color"))
+						.addChild(new ColorLiteral("#ffffff")))
+				.addChild((new Declaration("width"))
+						.addChild(new PixelLiteral("500px")))
+		);
+		/*
+		a {
+			color: #ff0000;
+		}
+		*/
+		stylesheet.addChild((new Stylerule())
+				.addChild(new TagSelector("a"))
+				.addChild((new Declaration("color"))
+						.addChild(new ColorLiteral("#ff0000")))
+		);
+
+		return new AST(stylesheet);
+	}
 }

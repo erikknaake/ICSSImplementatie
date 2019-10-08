@@ -83,4 +83,12 @@ class ParserTest {
 		AST exp = Fixtures.uncheckedLevel3();
 		assertEquals(exp,sut);
 	}
+
+	@Test
+	void testParseMultiSelectors() throws IOException {
+
+		AST sut = parseTestFile("multiselector.icss");
+		AST exp = Fixtures.multiselector();
+		assertEquals(exp,sut);
+	}
 }
