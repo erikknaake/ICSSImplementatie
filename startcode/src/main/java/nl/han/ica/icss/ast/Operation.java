@@ -26,4 +26,14 @@ public abstract class Operation extends Expression {
         }
         return this;
     }
+
+    @Override
+    public ASTNode removeChild(ASTNode child) {
+        if(lhs.equals(child)) {
+            lhs = null;
+        } else if(rhs.equals(child)) {
+            rhs = null;
+        }
+        return this;
+    }
 }

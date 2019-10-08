@@ -57,4 +57,14 @@ public class IfClause extends ASTNode {
     public Expression getConditionalExpression() {
         return conditionalExpression;
     }
+
+    @Override
+    public ASTNode removeChild(ASTNode child) {
+        if(child instanceof Expression) {
+            conditionalExpression = null;
+        } else {
+            body.remove(child);
+        }
+        return this;
+    }
 }

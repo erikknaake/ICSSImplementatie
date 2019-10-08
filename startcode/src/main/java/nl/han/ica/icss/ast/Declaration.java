@@ -62,4 +62,14 @@ public class Declaration extends ASTNode {
 	public int hashCode() {
 		return Objects.hash(property, expression);
 	}
+
+	@Override
+	public ASTNode removeChild(ASTNode child) {
+		if(child instanceof PropertyName) {
+			property = null;
+		} else if(child instanceof Expression) {
+			expression = null;
+		}
+		return this;
+	}
 }

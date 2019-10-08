@@ -61,4 +61,14 @@ public class VariableAssignment extends ASTNode {
 	public int hashCode() {
 		return Objects.hash(name, expression);
 	}
+
+	@Override
+	public ASTNode removeChild(ASTNode child) {
+		if (child instanceof VariableReference) {
+			name = null;
+		} else if(child instanceof Expression) {
+			expression = null;
+		}
+		return this;
+	}
 }
