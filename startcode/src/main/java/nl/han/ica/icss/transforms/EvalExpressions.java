@@ -9,6 +9,8 @@ import nl.han.ica.icss.ast.types.ExpressionType;
 import nl.han.ica.icss.typesystem.TypeResolver;
 import nl.han.ica.icss.typesystem.VariableValues;
 
+import java.util.Iterator;
+
 
 public class EvalExpressions implements Transform {
 
@@ -25,37 +27,55 @@ public class EvalExpressions implements Transform {
     }
 
     private void replaceExpressions(ASTNode node) {
-        for (ASTNode child : node.getChildren()) {
+        // Use of iterator to prevent ConcurrentModification when removing a variable assignment
+        Iterator<ASTNode> iterator = node.getChildren().iterator();
+        while (iterator.hasNext()) {
+            ASTNode child = iterator.next();
             replaceExpressions(child);
-            if (node instanceof VariableAssignment) {
-                assignVariable((VariableAssignment) node);
+            if (child instanceof VariableAssignment) {
+                iterator.remove();
+                AssignVariableAndRemoveVariableDeclaration(node, (VariableAssignment) child);
             }
             if (child instanceof Expression) {
-                if (child instanceof Operation) {
-                    replaceExpressions(((Operation) child).lhs);
-                    replaceExpressions(((Operation) child).rhs);
-                }
-                replaceExpression((Expression) child, node);
+                replaceExpression(node, child);
             }
         }
+    }
+
+    private void AssignVariableAndRemoveVariableDeclaration(ASTNode node, VariableAssignment variableAssignment) {
+        assignVariable(variableAssignment);
+        removeVariableAssignment(node, variableAssignment);
+    }
+
+    private void replaceExpression(ASTNode node, ASTNode child) {
+        if (child instanceof Operation) {
+            replaceOperation((Operation) child);
+        }
+        replaceExpressionWithLiteral((Expression) child, node);
+    }
+
+    private void replaceOperation(Operation operation) {
+        replaceExpressions(operation.lhs);
+        replaceExpressions(operation.rhs);
+    }
+
+    private void removeVariableAssignment(ASTNode parent, VariableAssignment child) {
+        parent.removeChild(child);
     }
 
     private void assignVariable(VariableAssignment variableAssignment) {
-        if(!(variableAssignment.expression instanceof ColorLiteral)) {
-            variableValues.put(variableAssignment.name.name,
-                    ValueFactory.make(TypeResolver.resolve(variableAssignment.expression),
-                            getValue(variableAssignment.expression))
-            );
-        }
+        variableValues.put(variableAssignment.name.name,
+                ValueFactory.make(TypeResolver.resolve(variableAssignment.expression),
+                        getValue(variableAssignment.expression))
+        );
     }
 
-    private void replaceExpression(Expression astNode, ASTNode parent) {
+    private void replaceExpressionWithLiteral(Expression astNode, ASTNode parent) {
         if (astNode instanceof Operation) {
             Literal value = calculateOperation((Operation) astNode);
             NodeTransformer.replaceChild(parent, astNode, value);
         }
-        else if(astNode instanceof VariableReference &&
-                !(parent instanceof VariableAssignment)) {
+        else if(astNode instanceof VariableReference && !(parent instanceof VariableAssignment)) {
             Literal value = getVariableValue((VariableReference) astNode);
             NodeTransformer.replaceChild(parent, astNode, value);
         }
@@ -64,8 +84,10 @@ public class EvalExpressions implements Transform {
     private Literal calculateOperation(Operation operation) {
         ExpressionType type = TypeResolver.resolve(operation);
 
+        // Safe to assume Integer values, since there is a check that checks whether or not operations are done on valid type
         int leftHandSideValue = Integer.parseInt(getValue(operation.lhs));
         int rightHandSideValue = Integer.parseInt(getValue(operation.rhs));
+
         int calculatedValue = Integer.MIN_VALUE;
         if(operation instanceof MultiplyOperation) {
             calculatedValue = leftHandSideValue * rightHandSideValue;
@@ -93,6 +115,8 @@ public class EvalExpressions implements Transform {
             return String.valueOf(((ScalarLiteral) node).value);
         else if (node instanceof BoolLiteral)
             return ((BoolLiteral) node).value ? "TRUE" : "FALSE";
+        else if (node instanceof ColorLiteral)
+            return ((ColorLiteral) node).value;
         else if(node instanceof Operation)
             return getValue(calculateOperation((Operation) node));
         else

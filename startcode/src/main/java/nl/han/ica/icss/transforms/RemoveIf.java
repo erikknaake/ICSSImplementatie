@@ -16,16 +16,19 @@ public class RemoveIf implements Transform {
     private void removeIfs(ASTNode node) {
         for(ASTNode child : node.getChildren()) {
             if(child instanceof IfClause) {
-                IfClause ifClause = (IfClause) child;
-                if(shouldRemove(ifClause)) {
-                    NodeTransformer.removeChildFromParent(node, child);
-                } else {
-                    NodeTransformer.replaceIfWithBody((Stylerule) node, ifClause, ifClause.body);
-                    removeIfs(node);
-                }
+                transformIf(node, (IfClause) child);
             } else {
                 removeIfs(child);
             }
+        }
+    }
+
+    private void transformIf(ASTNode node, IfClause child) {
+        if(shouldRemove(child)) {
+            NodeTransformer.removeChildFromParent(node, child);
+        } else {
+            NodeTransformer.replaceIfWithBody((Stylerule) node, child, child.body);
+            removeIfs(node);
         }
     }
 

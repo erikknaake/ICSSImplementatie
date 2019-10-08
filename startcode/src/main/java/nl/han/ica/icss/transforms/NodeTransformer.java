@@ -11,7 +11,6 @@ public class NodeTransformer {
         replacements.forEach(parent::addChild);
     }
 
-
     public static void replaceChild(ASTNode parent, ASTNode child, ASTNode replacement) {
         parent.removeChild(child);
         parent.addChild(replacement);
