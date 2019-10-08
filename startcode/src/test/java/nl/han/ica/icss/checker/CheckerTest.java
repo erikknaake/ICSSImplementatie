@@ -1,8 +1,6 @@
-package nl.han.ica.icss.parser.checker;
+package nl.han.ica.icss.checker;
 
 import nl.han.ica.icss.ast.ASTNode;
-import nl.han.ica.icss.checker.Checker;
-import nl.han.ica.icss.checker.IChecker;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;

@@ -33,10 +33,6 @@ public class VariableDefiner {
         return declaredVariables.getVariableType(variableReference.name) != null;
     }
 
-    public ExpressionType getVariableType(String variableName) {
-        return declaredVariables.getVariableType(variableName);
-    }
-
     private void declareVariable(VariableAssignment variableAssignment) {
         defineVariable(variableAssignment.name, TypeResolver.resolve(variableAssignment.expression));
     }

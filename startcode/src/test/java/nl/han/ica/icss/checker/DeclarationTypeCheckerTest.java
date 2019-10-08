@@ -1,7 +1,6 @@
-package nl.han.ica.icss.parser.checker;
+package nl.han.ica.icss.checker;
 
 import nl.han.ica.icss.ast.AST;
-import nl.han.ica.icss.checker.DeclarationTypeChecker;
 import org.junit.jupiter.api.Test;
 
 public class DeclarationTypeCheckerTest extends CheckerTest {

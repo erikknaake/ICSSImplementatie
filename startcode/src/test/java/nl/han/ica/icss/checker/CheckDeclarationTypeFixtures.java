@@ -1,4 +1,4 @@
-package nl.han.ica.icss.parser.checker;
+package nl.han.ica.icss.checker;
 
 import nl.han.ica.icss.ast.AST;
 import nl.han.ica.icss.ast.Declaration;

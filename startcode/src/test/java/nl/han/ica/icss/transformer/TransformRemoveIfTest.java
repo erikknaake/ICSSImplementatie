@@ -1,4 +1,4 @@
-package nl.han.ica.icss.parser.transformer;
+package nl.han.ica.icss.transformer;
 
 import nl.han.ica.icss.ast.AST;
 import nl.han.ica.icss.transforms.RemoveIf;

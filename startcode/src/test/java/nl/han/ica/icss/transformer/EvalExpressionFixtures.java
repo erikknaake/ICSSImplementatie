@@ -1,11 +1,13 @@
-package nl.han.ica.icss.parser.transformer;
+package nl.han.ica.icss.transformer;
 
 import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.literals.ColorLiteral;
+import nl.han.ica.icss.ast.literals.PercentageLiteral;
 import nl.han.ica.icss.ast.literals.PixelLiteral;
 import nl.han.ica.icss.ast.literals.ScalarLiteral;
 import nl.han.ica.icss.ast.operations.AddOperation;
 import nl.han.ica.icss.ast.operations.MultiplyOperation;
+import nl.han.ica.icss.ast.operations.SubtractOperation;
 import nl.han.ica.icss.ast.selectors.TagSelector;
 
 public class EvalExpressionFixtures {
@@ -76,17 +78,12 @@ public class EvalExpressionFixtures {
     public static AST calculatedProperty() {
         Stylesheet stylesheet = new Stylesheet();
 
-        stylesheet.addChild((new VariableAssignment())
-                .addChild(new VariableReference("ParWidth"))
-                .addChild(new PixelLiteral("200"))
-        );
-
         stylesheet.addChild((new Stylerule())
                 .addChild(new TagSelector("a"))
                 .addChild((new Declaration("width"))
                         .addChild((new MultiplyOperation())
                                 .addChild(new ScalarLiteral("2") )
-                                .addChild(new PixelLiteral("10px"))
+                                .addChild(new PercentageLiteral("10%"))
         )));
 
         return new AST(stylesheet);
@@ -98,7 +95,7 @@ public class EvalExpressionFixtures {
         stylesheet.addChild((new Stylerule())
                 .addChild(new TagSelector("a"))
                 .addChild((new Declaration("width"))
-                        .addChild(new PixelLiteral("20px")))
+                        .addChild(new PercentageLiteral("20%")))
         );
 
         return new AST(stylesheet);
@@ -109,10 +106,12 @@ public class EvalExpressionFixtures {
 
         stylesheet.addChild((new VariableAssignment())
                 .addChild(new VariableReference("FullWidth"))
-                .addChild((new MultiplyOperation())
-                        .addChild(new ScalarLiteral("2") )
-                        .addChild(new PixelLiteral("10px")
-                        )));
+                .addChild(new AddOperation()
+                        .addChild((new SubtractOperation())
+                            .addChild(new ScalarLiteral("3"))
+                            .addChild(new ScalarLiteral("1"))
+                        ).addChild(new PixelLiteral("3px"))
+                ));
 
         stylesheet.addChild((new Stylerule())
                 .addChild(new TagSelector("a"))
@@ -130,7 +129,7 @@ public class EvalExpressionFixtures {
         stylesheet.addChild((new Stylerule())
                 .addChild(new TagSelector("a"))
                 .addChild((new Declaration("width"))
-                        .addChild(new PixelLiteral("20px")))
+                        .addChild(new PixelLiteral("5px")))
         );
 
         return new AST(stylesheet);
