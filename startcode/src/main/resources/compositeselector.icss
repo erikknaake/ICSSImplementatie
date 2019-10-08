@@ -1,0 +1,8 @@
+p > a, html + #id, .class:active, p::first-line {
+	background-color: #ffffff;
+	width: 500px;
+}
+
+a ~ p {
+	color: #ff0000;
+}

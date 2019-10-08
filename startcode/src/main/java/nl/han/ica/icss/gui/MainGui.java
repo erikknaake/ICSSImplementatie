@@ -30,7 +30,7 @@ public class MainGui extends Application {
 
     private final static String title = "ICSS Tool September 2019";
     //Example files (for menu)
-    private final static List<String> examples = Arrays.asList("level0.icss","level1.icss","level2.icss","level3.icss", "expression.icss", "multiselector.icss");
+    private final static List<String> examples = Arrays.asList("level0.icss","level1.icss","level2.icss","level3.icss", "expressions.icss", "multiselector.icss", "compositeselector.icss");
 
     //UI Components
     private InputPane inputPane;
@@ -186,13 +186,8 @@ public class MainGui extends Application {
         stage.show();
     }
 
-    private void clearFeedback() {
-        feedbackPane.clear();
-        pipeline.clearErrors();
-    }
-
     private void parse() {
-        clearFeedback();
+        feedbackPane.clear();
         feedbackPane.addLine("Parsing...");
         pipeline.parseString(inputPane.getText());
         for(String e : pipeline.getErrors()) {
@@ -206,7 +201,7 @@ public class MainGui extends Application {
     }
 
     private void check() {
-        clearFeedback();
+        feedbackPane.clear();
         feedbackPane.addLine("Checking...");
 
         if (pipeline.check()) {
@@ -246,13 +241,11 @@ public class MainGui extends Application {
         transformButton.setDisable(true);
         generateButton.setDisable(true);
 
-        if (pipeline.isParsed() && !pipeline.hasErrors()) {
+        if (pipeline.isParsed()) {
             checkButton.setDisable(false);
-            if (pipeline.isChecked() && !pipeline.hasErrors()) {
+            if (pipeline.isChecked()) {
                 transformButton.setDisable(false);
-                if(pipeline.isTransformed() && !pipeline.hasErrors()) {
-                    generateButton.setDisable(false);
-                }
+                generateButton.setDisable(false);
             }
         }
     }

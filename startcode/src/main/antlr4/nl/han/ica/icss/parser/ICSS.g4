@@ -30,9 +30,6 @@ MIN: '-';
 LOWER_IDENT: [a-z] [a-z0-9\-]*;
 CAPITAL_IDENT: [A-Z] [A-Za-z0-9_]*;
 
-//All whitespace is skipped
-WS: [ \t\r\n]+ -> skip;
-
 //
 OPEN_BRACE: '{';
 CLOSE_BRACE: '}';
@@ -41,6 +38,11 @@ COLON: ':';
 ASSIGNMENT_OPERATOR: ':=';
 
 COMMA: ',';
+SIBLINGS: '>';
+IMMEDIATE_PARENT: '~';
+
+//All whitespace is skipped
+WS: [ \t\r\n]+ -> skip;
 
 //--- PARSER: ---
 
@@ -81,8 +83,18 @@ class_selector: CLASS_IDENT;
 id_selector: ID_IDENT;
 tag_selector: LOWER_IDENT;
 
-selectors: selector
+selector_composition_operator: SIBLINGS
+    | PLUS
+    | IMMEDIATE_PARENT
+    | COLON COLON
+    | COLON;
+
+selectors: composition_selector_or_selector
+    | selector
     | selector COMMA selectors;
+
+composition_selector_or_selector: selector
+    | selector selector_composition_operator selectors;
 
 selector: class_selector
     | id_selector
