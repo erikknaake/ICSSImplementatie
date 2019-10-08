@@ -72,4 +72,9 @@ public class Declaration extends ASTNode {
 		}
 		return this;
 	}
+
+	@Override
+	public String getCSSString() {
+		return property.name + ": " + expression.getCSSString() + ";";
+	}
 }

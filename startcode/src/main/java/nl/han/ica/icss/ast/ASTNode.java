@@ -82,4 +82,16 @@ public class ASTNode {
         }
         return true;
     }
+
+    protected final String getChildrenCSSString() {
+        StringBuilder result = new StringBuilder();
+        for(ASTNode node : getChildren()) {
+            result.append(node.getCSSString()).append("\n\n");
+        }
+        return result.toString();
+    }
+
+    public String getCSSString() {
+        return getChildrenCSSString();
+    }
 }

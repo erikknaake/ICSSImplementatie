@@ -60,4 +60,33 @@ public class Stylerule extends ASTNode {
 		body.remove(child);
 		return this;
 	}
+
+	@Override
+	public String getCSSString() {
+    	StringBuilder stringBuilder = new StringBuilder();
+
+		addSelectorsCSSString(stringBuilder);
+
+		stringBuilder.append(" {\n\t");
+		addBodyCSSString(stringBuilder);
+		stringBuilder.append("}");
+
+		return stringBuilder.toString();
+	}
+
+	private void addBodyCSSString(StringBuilder stringBuilder) {
+		for(int i = 0; i < body.size(); i++) {
+			stringBuilder.append(body.get(i).getCSSString()).append("\n");
+			if(i < body.size() - 1)
+				stringBuilder.append("\t");
+		}
+	}
+
+	private void addSelectorsCSSString(StringBuilder stringBuilder) {
+		for(int i = 0; i < selectors.size(); i++) {
+			stringBuilder.append(selectors.get(i).getCSSString());
+			if(i < selectors.size() - 1)
+				stringBuilder.append(", ");
+		}
+	}
 }
