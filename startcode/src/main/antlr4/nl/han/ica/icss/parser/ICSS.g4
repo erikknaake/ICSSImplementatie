@@ -40,6 +40,8 @@ SEMICOLON: ';';
 COLON: ':';
 ASSIGNMENT_OPERATOR: ':=';
 
+COMMA: ',';
+
 //--- PARSER: ---
 
 stylesheet: body EOF;
@@ -79,6 +81,9 @@ class_selector: CLASS_IDENT;
 id_selector: ID_IDENT;
 tag_selector: LOWER_IDENT;
 
+selectors: selector COMMA selectors
+    | selector;
+
 selector: class_selector
     | id_selector
     | tag_selector;
@@ -90,7 +95,7 @@ scope: OPEN_BRACE body CLOSE_BRACE;
 
 if_clause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE scope;
 
-stylerule: selector scope;
+stylerule: selectors scope;
 
 variable_assignment: variable_reference ASSIGNMENT_OPERATOR expression SEMICOLON;
 variable_reference: CAPITAL_IDENT;
