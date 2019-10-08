@@ -59,6 +59,7 @@ public class Pipeline implements ANTLRErrorListener {
         ICSSLexer lexer = new ICSSLexer(inputStream);
         lexer.removeErrorListeners();
         lexer.addErrorListener(this);
+        errors.clear();
         try {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 
@@ -84,7 +85,7 @@ public class Pipeline implements ANTLRErrorListener {
             this.ast = new AST();
             errors.add("Syntax error");
         }
-        parsed = true;
+        parsed = errors.isEmpty();
         checked = transformed = false;
     }
     public boolean check() {
@@ -100,7 +101,7 @@ public class Pipeline implements ANTLRErrorListener {
                 }
             }
 
-            checked = true;
+            checked = errors.isEmpty();
             transformed = false;
             return errors.isEmpty();
     }
@@ -111,7 +112,7 @@ public class Pipeline implements ANTLRErrorListener {
         (new EvalExpressions()).apply(ast);
         (new RemoveIf()).apply(ast);
 
-        transformed = true;
+        transformed = errors.isEmpty();
     }
     public String generate() {
         Generator generator = new Generator();

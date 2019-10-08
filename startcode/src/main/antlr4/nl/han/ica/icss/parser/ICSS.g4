@@ -27,7 +27,7 @@ MUL: '*';
 MIN: '-';
 
 //General identifiers
-LOWER_IDENT: [a-z0-9\-]+;
+LOWER_IDENT: [a-z] [a-z0-9\-]*;
 CAPITAL_IDENT: [A-Z] [A-Za-z0-9_]*;
 
 //All whitespace is skipped
