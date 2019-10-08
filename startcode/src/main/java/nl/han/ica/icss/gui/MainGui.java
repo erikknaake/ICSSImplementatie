@@ -185,9 +185,15 @@ public class MainGui extends Application {
         stage.show();
     }
 
-    private void parse() {
+    private void clearFeedback() {
         feedbackPane.clear();
+        pipeline.clearErrors();
+    }
+
+    private void parse() {
+        clearFeedback();
         feedbackPane.addLine("Parsing...");
+
 
         pipeline.parseString(inputPane.getText());
         for(String e : pipeline.getErrors()) {
@@ -198,7 +204,7 @@ public class MainGui extends Application {
     }
 
     private void check() {
-        feedbackPane.clear();
+        clearFeedback();
         feedbackPane.addLine("Checking...");
 
         if (pipeline.check()) {
@@ -213,11 +219,11 @@ public class MainGui extends Application {
     }
 
     private void transform() {
-       feedbackPane.clear();
-       feedbackPane.addLine("Applying transformations...");
-       pipeline.transform();
-       astPane.update(pipeline.getAST());
-       updateToolbar();
+        clearFeedback();
+        feedbackPane.addLine("Applying transformations...");
+        pipeline.transform();
+        astPane.update(pipeline.getAST());
+        updateToolbar();
     }
 
     private void generate() {
@@ -235,11 +241,13 @@ public class MainGui extends Application {
         transformButton.setDisable(true);
         generateButton.setDisable(true);
 
-        if (pipeline.isParsed()) {
+        if (pipeline.isParsed() && !pipeline.hasErrors()) {
             checkButton.setDisable(false);
-            if (pipeline.isChecked()) {
+            if (pipeline.isChecked() && !pipeline.hasErrors()) {
                 transformButton.setDisable(false);
-                generateButton.setDisable(false);
+                if(pipeline.isTransformed() && !pipeline.hasErrors()) {
+                    generateButton.setDisable(false);
+                }
             }
         }
     }

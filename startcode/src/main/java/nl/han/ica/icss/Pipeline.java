@@ -48,6 +48,10 @@ public class Pipeline implements ANTLRErrorListener {
         return transformed;
     }
 
+    public void clearErrors() {
+        errors.clear();
+    }
+
     public void parseString(String input) {
 
         //Lex (with Antlr's generated lexer)
@@ -134,5 +138,9 @@ public class Pipeline implements ANTLRErrorListener {
     public void syntaxError(Recognizer<?, ?> arg0, Object arg1, int arg2,
                             int arg3, String arg4, RecognitionException arg5) {
         errors.add("Syntax error: " + arg4);
+    }
+
+    public boolean hasErrors() {
+        return errors.size() != 0;
     }
 }
