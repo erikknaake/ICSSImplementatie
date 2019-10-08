@@ -34,6 +34,6 @@ public class PercentageLiteral extends Literal {
 
     @Override
     public String getCSSString() {
-        return String.valueOf(value) + "%";
+        return value + "%";
     }
 }

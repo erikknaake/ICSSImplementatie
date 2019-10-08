@@ -32,8 +32,4 @@ public class ScalarLiteral extends Literal {
         return Objects.hash(value);
     }
 
-    @Override
-    public String getCSSString() {
-        return String.valueOf(value);
-    }
 }
