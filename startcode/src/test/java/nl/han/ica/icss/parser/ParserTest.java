@@ -93,6 +93,14 @@ class ParserTest {
 	}
 
 	@Test
+	void testParseCompositeSelectors() throws IOException {
+
+		AST sut = parseTestFile("compositeselector.icss");
+		AST exp = Fixtures.compositeselector();
+		assertEquals(exp,sut);
+	}
+
+	@Test
 	void testParseIfElse() throws IOException {
 
 		AST sut = parseTestFile("ifelse.icss");

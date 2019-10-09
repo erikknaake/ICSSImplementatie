@@ -7,9 +7,7 @@ import nl.han.ica.icss.ast.literals.PixelLiteral;
 import nl.han.ica.icss.ast.literals.ScalarLiteral;
 import nl.han.ica.icss.ast.operations.AddOperation;
 import nl.han.ica.icss.ast.operations.MultiplyOperation;
-import nl.han.ica.icss.ast.selectors.ClassSelector;
-import nl.han.ica.icss.ast.selectors.IdSelector;
-import nl.han.ica.icss.ast.selectors.TagSelector;
+import nl.han.ica.icss.ast.selectors.*;
 
 public class Fixtures {
 
@@ -412,6 +410,57 @@ public class Fixtures {
                         .addChild(new VariableReference("LinkColor")))
         );
 
+		return new AST(stylesheet);
+	}
+
+	public static AST compositeselector() {
+		Stylesheet stylesheet = new Stylesheet();
+		/*
+		p > a, html + #id, .class:active, p::first-line {
+			background-color: #ffffff;
+			width: 500px;
+		}
+		*/
+		stylesheet.addChild((new Stylerule())
+				.addChild(new CompositeSelector()
+						.addChild(new TagSelector("p"))
+						.addChild(new SelectorCompositionOperator(">"))
+						.addChild(new TagSelector("a"))
+				)
+				.addChild(new CompositeSelector()
+						.addChild(new TagSelector("html"))
+						.addChild(new SelectorCompositionOperator("+"))
+						.addChild(new IdSelector("#id"))
+				)
+				.addChild(new CompositeSelector()
+						.addChild(new ClassSelector(".class"))
+						.addChild(new StateSelectorCompositionOperator(":"))
+						.addChild(new TagSelector("active"))
+				)
+				.addChild(new CompositeSelector()
+						.addChild(new TagSelector("p"))
+						.addChild(new StateSelectorCompositionOperator("::"))
+						.addChild(new TagSelector("first-line"))
+				)
+				.addChild((new Declaration("background-color"))
+						.addChild(new ColorLiteral("#ffffff")))
+				.addChild((new Declaration("width"))
+						.addChild(new PixelLiteral("500px")))
+		);
+		/*
+		a ~ p {
+			color: #ff0000;
+		}
+		*/
+		stylesheet.addChild((new Stylerule())
+				.addChild(new CompositeSelector()
+						.addChild(new TagSelector("a"))
+						.addChild(new SelectorCompositionOperator("~"))
+						.addChild(new TagSelector("p"))
+				)
+				.addChild((new Declaration("color"))
+						.addChild(new ColorLiteral("#ff0000")))
+		);
 		return new AST(stylesheet);
 	}
 }

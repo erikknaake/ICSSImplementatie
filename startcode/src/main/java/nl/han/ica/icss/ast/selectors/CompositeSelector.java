@@ -9,6 +9,8 @@ public class CompositeSelector extends Selector {
     private SelectorCompositionOperator operator;
     private Selector lhs, rhs;
 
+    public CompositeSelector() {}
+
     public CompositeSelector(Selector lhs, Selector rhs, SelectorCompositionOperator operator) {
         this.lhs = lhs;
         this.rhs = rhs;
@@ -39,7 +41,9 @@ public class CompositeSelector extends Selector {
 
     @Override
     public ASTNode addChild(ASTNode child) {
-        if(lhs == null) {
+        if(child instanceof SelectorCompositionOperator)
+            operator = (SelectorCompositionOperator) child;
+        else if(lhs == null) {
             lhs = (Selector) child;
         } else if(rhs == null) {
             rhs = (Selector) child;
