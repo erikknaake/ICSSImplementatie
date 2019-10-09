@@ -13,6 +13,8 @@ public class SelectorFactory {
             return makeIdSelector(selectorContext.id_selector());
         else if(selectorContext.tag_selector() != null)
             return makeTagSelector(selectorContext.tag_selector());
+        else if(selectorContext.selector_composition_operator() != null)
+            return CompositeSelectorFactory.make(selectorContext);
         else
             throw new IllegalStateException("No selector found in SelectorContext");
     }

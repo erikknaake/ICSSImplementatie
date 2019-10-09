@@ -79,26 +79,25 @@ expression: left=expression multiply_operation right=expression
     | variable_reference;
 
 
-class_selector: CLASS_IDENT;
-id_selector: ID_IDENT;
-tag_selector: LOWER_IDENT;
-
 selector_composition_operator: SIBLINGS
     | PLUS
     | IMMEDIATE_PARENT
     | COLON COLON
     | COLON;
 
-selectors: composition_selector_or_selector
-    | selector
-    | selector COMMA selectors;
+class_selector: CLASS_IDENT;
+id_selector: ID_IDENT;
+tag_selector: LOWER_IDENT;
 
-composition_selector_or_selector: selector
-    | selector selector_composition_operator selectors;
+selectors: selector
+    | seperated_selector* selector;
+
+seperated_selector: selector COMMA;
 
 selector: class_selector
     | id_selector
-    | tag_selector;
+    | tag_selector
+    | left=selector selector_composition_operator right=selector;
 
 property_name: LOWER_IDENT;
 declaration: property_name COLON expression SEMICOLON;

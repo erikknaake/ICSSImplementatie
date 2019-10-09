@@ -9,6 +9,12 @@ public class CompositeSelector extends Selector {
     private SelectorCompositionOperator operator;
     private Selector lhs, rhs;
 
+    public CompositeSelector(Selector lhs, Selector rhs, SelectorCompositionOperator operator) {
+        this.lhs = lhs;
+        this.rhs = rhs;
+        this.operator = operator;
+    }
+
     public String getNodeLabel() {
         return "CompositeSelector";
     }

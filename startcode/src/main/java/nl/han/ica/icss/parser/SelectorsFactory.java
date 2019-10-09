@@ -7,11 +7,11 @@ import java.util.*;
 public class SelectorsFactory {
     public static ArrayList<Selector> make(ICSSParser.SelectorsContext selectorsContext) {
         ArrayList<Selector> selectors = new ArrayList<>();
+        for(ICSSParser.Seperated_selectorContext separated_selectorContext : selectorsContext.seperated_selector()) {
+            selectors.add(SelectorFactory.make(separated_selectorContext.selector()));
+        }
         if(selectorsContext.selector() != null) {
             selectors.add(SelectorFactory.make(selectorsContext.selector()));
-        }
-        if(selectorsContext.selectors() != null) {
-            selectors.addAll(make(selectorsContext.selectors()));
         }
         return selectors;
     }
