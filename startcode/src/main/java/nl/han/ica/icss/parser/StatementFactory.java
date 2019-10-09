@@ -10,8 +10,8 @@ public class StatementFactory {
             return VariableAssignmentFactory.make(statementContext.variable_assignment());
         else if(statementContext.stylerule() != null)
             return StyleRuleFactory.make(statementContext.stylerule());
-        else if(statementContext.if_clause() != null)
-            return IfClauseFactory.make(statementContext.if_clause());
+        else if(statementContext.if_statement() != null)
+            return IfStatementFactory.make(statementContext.if_statement());
         else
             throw new IllegalStateException("No valid statement found inside StatementContext");
     }

@@ -1,0 +1,17 @@
+AdjustColor := FALSE;
+LinkColor := #222222;
+
+p {
+	background-color: #ffffff;
+	if[AdjustColor] {
+	    color: #124532;
+	} else {
+	    background-color: LinkColor;
+	}
+}
+a {
+    if[AdjustColor] {
+        color: #124532;
+    }
+     color: LinkColor;
+}

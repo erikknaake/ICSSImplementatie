@@ -6,7 +6,7 @@ grammar ICSS;
 IF: 'if';
 BOX_BRACKET_OPEN: '[';
 BOX_BRACKET_CLOSE: ']';
-
+ELSE: 'else';
 
 //Literals
 TRUE: 'TRUE';
@@ -50,9 +50,9 @@ stylesheet: body EOF;
 
 body: statement*;
 statement: variable_assignment
+    | if_statement
     | stylerule
-    | declaration
-    | if_clause;
+    | declaration;
 
 
 bool_literal: TRUE
@@ -104,7 +104,9 @@ declaration: property_name COLON expression SEMICOLON;
 
 scope: OPEN_BRACE body CLOSE_BRACE;
 
+if_statement: if_clause else_clause?;
 if_clause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE scope;
+else_clause: ELSE scope;
 
 stylerule: selectors scope;
 

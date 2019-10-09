@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class NodeTransformer {
 
-    public static void replaceIfWithBody(Stylerule parent, IfClause child, ArrayList<ASTNode> replacements) {
+    public static void replaceIfWithBody(Stylerule parent, ASTNode child, ArrayList<ASTNode> replacements) {
         parent.removeChild(child);
         replacements.forEach(parent::addChild);
     }
