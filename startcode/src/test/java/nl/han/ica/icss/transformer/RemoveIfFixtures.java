@@ -45,11 +45,14 @@ public class RemoveIfFixtures {
                 .addChild(new TagSelector("p"))
                 .addChild((new Declaration("background-color"))
                         .addChild(new ColorLiteral("#ffffff")))
-                .addChild((new IfClause())
-                        .addChild(new BoolLiteral("FALSE"))
-                        .addChild((new Declaration("color")
-                                .addChild(new ColorLiteral("#124532"))))
-                ));
+                .addChild((new IfStatement())
+                        .addChild((new IfClause())
+                                .addChild(new BoolLiteral("FALSE"))
+                                .addChild((new Declaration("color")
+                                        .addChild(new ColorLiteral("#124532"))))
+                        ))
+                );
+
 
         return new AST(stylesheet);
     }
@@ -85,10 +88,12 @@ public class RemoveIfFixtures {
                 .addChild(new TagSelector("p"))
                 .addChild((new Declaration("background-color"))
                         .addChild(new ColorLiteral("#ffffff")))
-                .addChild((new IfClause())
-                        .addChild(new BoolLiteral("TRUE"))
-                        .addChild((new Declaration("color")
-                                .addChild(new ColorLiteral("#124532"))))
+                .addChild((new IfStatement()
+                        .addChild((new IfClause())
+                                .addChild(new BoolLiteral("TRUE"))
+                                .addChild((new Declaration("color")
+                                        .addChild(new ColorLiteral("#124532"))))
+                        ))
                 ));
 
         return new AST(stylesheet);
@@ -127,13 +132,18 @@ public class RemoveIfFixtures {
                 .addChild(new TagSelector("p"))
                 .addChild((new Declaration("background-color"))
                         .addChild(new ColorLiteral("#ffffff")))
-                .addChild((new IfClause())
-                        .addChild(new BoolLiteral("TRUE"))
-                        .addChild((new Declaration("color")
-                                .addChild(new ColorLiteral("#124532"))))
-                .addChild((new IfClause())
-                        .addChild(new BoolLiteral("TRUE"))
-                        .addChild(new Declaration("bg-color").addChild(new ColorLiteral("#111111")))))
+                .addChild((new IfStatement())
+                        .addChild((new IfClause())
+                                .addChild(new BoolLiteral("TRUE"))
+                                .addChild((new Declaration("color")
+                                        .addChild(new ColorLiteral("#124532"))))
+                                .addChild((new IfStatement())
+                                        .addChild((new IfClause())
+                                                .addChild(new BoolLiteral("TRUE"))
+                                                .addChild(new Declaration("bg-color").addChild(new ColorLiteral("#111111"))))
+                                )
+                    )
+                )
         );
 
         return new AST(stylesheet);
@@ -174,13 +184,17 @@ public class RemoveIfFixtures {
                 .addChild(new TagSelector("p"))
                 .addChild((new Declaration("background-color"))
                         .addChild(new ColorLiteral("#ffffff")))
-                .addChild((new IfClause())
-                        .addChild(new BoolLiteral("TRUE"))
-                        .addChild((new Declaration("color")
-                                .addChild(new ColorLiteral("#124532"))))
+                .addChild((new IfStatement())
                         .addChild((new IfClause())
-                                .addChild(new BoolLiteral("FALSE"))
-                                .addChild(new Declaration("bg-color").addChild(new ColorLiteral("#111111")))))
+                                .addChild(new BoolLiteral("TRUE"))
+                                .addChild((new Declaration("color")
+                                        .addChild(new ColorLiteral("#124532"))))
+                                .addChild((new IfStatement())
+                                        .addChild((new IfClause())
+                                                .addChild(new BoolLiteral("FALSE"))
+                                                .addChild(new Declaration("bg-color").addChild(new ColorLiteral("#111111")))))
+                                )
+                )
         );
 
         return new AST(stylesheet);
@@ -219,13 +233,17 @@ public class RemoveIfFixtures {
                 .addChild(new TagSelector("p"))
                 .addChild((new Declaration("background-color"))
                         .addChild(new ColorLiteral("#ffffff")))
-                .addChild((new IfClause())
-                        .addChild(new BoolLiteral("FALSE"))
-                        .addChild((new Declaration("color")
-                                .addChild(new ColorLiteral("#124532"))))
+                .addChild((new IfStatement())
                         .addChild((new IfClause())
-                                .addChild(new BoolLiteral("TRUE"))
-                                .addChild(new Declaration("bg-color").addChild(new ColorLiteral("#111111")))))
+                                .addChild(new BoolLiteral("FALSE"))
+                                .addChild((new Declaration("color")
+                                        .addChild(new ColorLiteral("#124532"))))
+                                .addChild((new IfStatement())
+                                        .addChild((new IfClause())
+                                                .addChild(new BoolLiteral("TRUE"))
+                                                .addChild(new Declaration("bg-color").addChild(new ColorLiteral("#111111")))))
+                                )
+                )
         );
 
         return new AST(stylesheet);

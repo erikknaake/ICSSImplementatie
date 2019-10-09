@@ -91,4 +91,12 @@ class ParserTest {
 		AST exp = Fixtures.multiselector();
 		assertEquals(exp,sut);
 	}
+
+	@Test
+	void testParseIfElse() throws IOException {
+
+		AST sut = parseTestFile("ifelse.icss");
+		AST exp = Fixtures.ifelse();
+		assertEquals(exp,sut);
+	}
 }
