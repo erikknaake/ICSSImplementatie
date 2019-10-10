@@ -1,0 +1,7 @@
+html > #id {
+    color: #123456;
+}
+
+html > .class {
+    color: #123456;
+}

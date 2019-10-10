@@ -6,8 +6,8 @@ import nl.han.ica.icss.ast.Selector;
 import java.util.ArrayList;
 
 public class CompositeSelector extends Selector {
-    private SelectorCompositionOperator operator;
-    private Selector lhs, rhs;
+    public SelectorCompositionOperator operator;
+    public Selector lhs, rhs;
 
     public CompositeSelector() {}
 
@@ -52,4 +52,5 @@ public class CompositeSelector extends Selector {
         }
         return this;
     }
+
 }

@@ -4,7 +4,7 @@ import nl.han.ica.icss.ast.ASTNode;
 
 public class SelectorCompositionOperator extends ASTNode {
 
-    protected String operator;
+    public String operator;
 
     public SelectorCompositionOperator(String operator) {
         this.operator = operator.trim();
