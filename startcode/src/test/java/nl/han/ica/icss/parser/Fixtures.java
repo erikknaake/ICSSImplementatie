@@ -468,4 +468,44 @@ public class Fixtures {
 		);
 		return new AST(stylesheet);
 	}
+
+	public static AST variableAssignmentInsideStylerule() {
+		Stylesheet stylesheet = new Stylesheet();
+		/*
+			LinkColor := #ff0000;
+		*/
+		stylesheet.addChild((new VariableAssignment())
+				.addChild(new VariableReference("LinkColor"))
+				.addChild(new ColorLiteral("#ff0000"))
+		);
+   	    /*
+	        p {
+	        ParWidth := 500px;
+	        background-color: #ffffff;
+	        width: ParWidth;
+            }
+	    */
+		stylesheet.addChild((new Stylerule())
+				.addChild(new TagSelector("p"))
+				.addChild((new VariableAssignment())
+						.addChild(new VariableReference("ParWidth"))
+						.addChild(new PixelLiteral("500px"))
+				)
+				.addChild((new Declaration("background-color"))
+						.addChild(new ColorLiteral("#ffffff")))
+				.addChild((new Declaration("width"))
+						.addChild(new VariableReference("ParWidth")))
+		);
+        /*
+        a {
+	        color: LinkColor;
+        }
+        */
+		stylesheet.addChild((new Stylerule())
+				.addChild(new TagSelector("a"))
+				.addChild((new Declaration("color"))
+						.addChild(new VariableReference("LinkColor")))
+		);
+		return new AST(stylesheet);
+	}
 }

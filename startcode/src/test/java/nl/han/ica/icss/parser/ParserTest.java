@@ -107,4 +107,12 @@ class ParserTest {
 		AST exp = Fixtures.ifelse();
 		assertEquals(exp,sut);
 	}
+
+	@Test
+	void testVariableAssignmentInsideStylerule() throws IOException {
+
+		AST sut = parseTestFile("assignment.icss");
+		AST exp = Fixtures.variableAssignmentInsideStylerule();
+		assertEquals(exp,sut);
+	}
 }
