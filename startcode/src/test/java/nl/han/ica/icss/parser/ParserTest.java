@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
 
@@ -114,5 +113,12 @@ class ParserTest {
 		AST sut = parseTestFile("assignment.icss");
 		AST exp = Fixtures.variableAssignmentInsideStylerule();
 		assertEquals(exp,sut);
+	}
+
+	@Test
+	void testNoIfInsideStylesheet() throws IOException {
+		assertThrows(IllegalStateException.class, () -> {
+			parseTestFile("ifInsideStylesheet.icss");
+		});
 	}
 }

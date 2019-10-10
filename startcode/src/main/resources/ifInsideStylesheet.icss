@@ -1,0 +1,7 @@
+AdjustColor := TRUE;
+
+if[AdjustColor] {
+    p {
+        color: #222222;
+    }
+}
