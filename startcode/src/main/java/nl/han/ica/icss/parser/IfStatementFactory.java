@@ -15,7 +15,7 @@ public class IfStatementFactory {
 
     private static ElseClause makeElseClause(ICSSParser.Else_clauseContext else_clauseContext) {
         if (else_clauseContext != null) {
-            return new ElseClause(BodyFactory.make(else_clauseContext.scope().body()));
+            return new ElseClause(BodyFactory.make(else_clauseContext.scope().stylerule_body()));
         } else
             return null;
     }

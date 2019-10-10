@@ -48,9 +48,13 @@ WS: [ \t\r\n]+ -> skip;
 
 stylesheet: body EOF;
 
+stylerule_body: stylerule_statement*;
+stylerule_statement: variable_assignment
+    | declaration
+    | if_statement;
+
 body: statement*;
 statement: variable_assignment
-    | if_statement
     | stylerule
     | declaration;
 
@@ -102,7 +106,7 @@ selector: class_selector
 property_name: LOWER_IDENT;
 declaration: property_name COLON expression SEMICOLON;
 
-scope: OPEN_BRACE body CLOSE_BRACE;
+scope: OPEN_BRACE stylerule_body CLOSE_BRACE;
 
 if_statement: if_clause else_clause?;
 if_clause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE scope;

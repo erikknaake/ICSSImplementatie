@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -116,8 +117,9 @@ class ParserTest {
 	}
 
 	@Test
-	void testNoIfInsideStylesheet() throws IOException {
-		assertThrows(IllegalStateException.class, () -> {
+	void testNoIfInsideStylesheet() {
+		// Expect the parse to fail
+		assertThrows(AssertionFailedError.class, () -> {
 			parseTestFile("ifInsideStylesheet.icss");
 		});
 	}
