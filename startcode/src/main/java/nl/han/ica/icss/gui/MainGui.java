@@ -1,5 +1,13 @@
 package nl.han.ica.icss.gui;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.*;
+
+//We use this google library, because it makes life so much easier when
+//reading the examples icss files as packaged resource
 import com.google.common.io.Resources;
 
 import javafx.application.Application;
@@ -14,16 +22,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nl.han.ica.icss.Pipeline;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.List;
-
-//We use this google library, because it makes life so much easier when
-//reading the examples icss files as packaged resource
 
 @SuppressWarnings("restriction")
 public class MainGui extends Application {
@@ -186,8 +184,13 @@ public class MainGui extends Application {
         stage.show();
     }
 
-    private void parse() {
+    private void clear() {
         feedbackPane.clear();
+        pipeline.clearErrors();
+    }
+
+    private void parse() {
+        clear();
         feedbackPane.addLine("Parsing...");
         pipeline.parseString(inputPane.getText());
         for(String e : pipeline.getErrors()) {
@@ -201,9 +204,8 @@ public class MainGui extends Application {
     }
 
     private void check() {
-        feedbackPane.clear();
+        clear();
         feedbackPane.addLine("Checking...");
-
         if (pipeline.check()) {
             feedbackPane.addLine("AST is ok!");
         } else {
@@ -216,7 +218,7 @@ public class MainGui extends Application {
     }
 
     private void transform() {
-       feedbackPane.clear();
+       clear();
        feedbackPane.addLine("Applying transformations...");
        pipeline.transform();
        if (pipeline.isTransformed()) {
@@ -227,7 +229,7 @@ public class MainGui extends Application {
     }
 
     private void generate() {
-        feedbackPane.clear();
+        clear();
         feedbackPane.addLine("Generating output...");
         outputPane.setText(pipeline.generate());
         feedbackPane.addLine("Generating succeeded");
@@ -235,7 +237,6 @@ public class MainGui extends Application {
     }
 
     private void updateToolbar() {
-
         //Quick and ugly way...
         checkButton.setDisable(true);
         transformButton.setDisable(true);
@@ -249,5 +250,4 @@ public class MainGui extends Application {
             }
         }
     }
-
 }

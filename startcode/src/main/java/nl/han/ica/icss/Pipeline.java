@@ -115,6 +115,10 @@ public class Pipeline implements ANTLRErrorListener {
         return generator.generate(ast);
     }
 
+    public void clearErrors(){
+        errors.clear();
+    }
+
     //Catch ANTLR errors
     @Override
     public void reportAmbiguity(Parser arg0, DFA arg1, int arg2, int arg3,
