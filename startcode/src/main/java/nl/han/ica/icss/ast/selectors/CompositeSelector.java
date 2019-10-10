@@ -34,6 +34,8 @@ public class CompositeSelector extends Selector {
         ArrayList<ASTNode> children = new ArrayList<>();
         if(lhs != null)
             children.add(lhs);
+        if(operator != null)
+            children.add(operator);
         if(rhs != null)
             children.add(rhs);
         return children;
@@ -41,7 +43,7 @@ public class CompositeSelector extends Selector {
 
     @Override
     public ASTNode addChild(ASTNode child) {
-        if(child instanceof SelectorCompositionOperator)
+        if(child instanceof SelectorCompositionOperator && operator == null)
             operator = (SelectorCompositionOperator) child;
         else if(lhs == null) {
             lhs = (Selector) child;

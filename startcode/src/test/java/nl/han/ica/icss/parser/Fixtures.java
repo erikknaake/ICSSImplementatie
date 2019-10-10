@@ -416,17 +416,22 @@ public class Fixtures {
 	public static AST compositeselector() {
 		Stylesheet stylesheet = new Stylesheet();
 		/*
-		p > a, html + #id, .class:active, p::first-line {
+		div ~ p > a, html + #id, .class:active, p::first-line {
 			background-color: #ffffff;
 			width: 500px;
 		}
 		*/
 		stylesheet.addChild((new Stylerule())
-				.addChild(new CompositeSelector()
-						.addChild(new TagSelector("p"))
-						.addChild(new SelectorCompositionOperator(">"))
-						.addChild(new TagSelector("a"))
-				)
+				.addChild(new CompositeSelector(
+						new CompositeSelector(
+								new TagSelector("div"),
+								new TagSelector("p"),
+								new SelectorCompositionOperator("~")
+						),
+							new TagSelector("a"),
+							new SelectorCompositionOperator(">")
+						)
+					)
 				.addChild(new CompositeSelector()
 						.addChild(new TagSelector("html"))
 						.addChild(new SelectorCompositionOperator("+"))
