@@ -5,15 +5,15 @@ import nl.han.ica.icss.ast.literals.*;
 
 public class LiteralFactory {
     public static Literal make(ICSSParser.LiteralContext literalContext) {
-        if(literalContext.color_literal() != null)
+        if (literalContext.color_literal() != null)
             return makeColorLiteral(literalContext.color_literal());
-        else if(literalContext.pixel_literal() != null)
+        else if (literalContext.pixel_literal() != null)
             return makePixelLiteral(literalContext.pixel_literal());
-        else if(literalContext.percentage_literal() != null)
+        else if (literalContext.percentage_literal() != null)
             return makePercentageLiteral(literalContext.percentage_literal());
-        else if(literalContext.scalar_literal() != null)
+        else if (literalContext.scalar_literal() != null)
             return makeScalarLiteral(literalContext.scalar_literal());
-        else if(literalContext.bool_literal() != null)
+        else if (literalContext.bool_literal() != null)
             return makeBooleanLiteral(literalContext.bool_literal());
         else
             throw new IllegalStateException("No literal found inside LiteralContext");
@@ -36,6 +36,6 @@ public class LiteralFactory {
     }
 
     private static BoolLiteral makeBooleanLiteral(ICSSParser.Bool_literalContext bool) {
-        return  new BoolLiteral(bool.getText());
+        return new BoolLiteral(bool.getText());
     }
 }

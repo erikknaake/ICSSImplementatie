@@ -13,6 +13,7 @@ public class SelectorCompositionOperator extends ASTNode {
     public String getNodeLabel() {
         return "SelectorCompositionOperator(" + operator + ")";
     }
+
     public String toString() {
         return operator;
     }

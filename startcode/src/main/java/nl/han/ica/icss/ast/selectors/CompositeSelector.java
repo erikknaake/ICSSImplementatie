@@ -9,7 +9,8 @@ public class CompositeSelector extends Selector {
     public SelectorCompositionOperator operator;
     public Selector lhs, rhs;
 
-    public CompositeSelector() {}
+    public CompositeSelector() {
+    }
 
     public CompositeSelector(Selector lhs, Selector rhs, SelectorCompositionOperator operator) {
         this.lhs = lhs;
@@ -20,6 +21,7 @@ public class CompositeSelector extends Selector {
     public String getNodeLabel() {
         return "CompositeSelector";
     }
+
     public String toString() {
         return lhs + " " + operator + " " + rhs;
     }
@@ -32,22 +34,22 @@ public class CompositeSelector extends Selector {
     @Override
     public ArrayList<ASTNode> getChildren() {
         ArrayList<ASTNode> children = new ArrayList<>();
-        if(lhs != null)
+        if (lhs != null)
             children.add(lhs);
-        if(operator != null)
+        if (operator != null)
             children.add(operator);
-        if(rhs != null)
+        if (rhs != null)
             children.add(rhs);
         return children;
     }
 
     @Override
     public ASTNode addChild(ASTNode child) {
-        if(child instanceof SelectorCompositionOperator && operator == null)
+        if (child instanceof SelectorCompositionOperator && operator == null)
             operator = (SelectorCompositionOperator) child;
-        else if(lhs == null) {
+        else if (lhs == null) {
             lhs = (Selector) child;
-        } else if(rhs == null) {
+        } else if (rhs == null) {
             rhs = (Selector) child;
         }
         return this;

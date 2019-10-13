@@ -5,70 +5,70 @@ import java.util.Objects;
 
 /**
  * An assignment binds a expression to an identifier.
- *
  */
 public class VariableAssignment extends ASTNode {
-	
-	public VariableReference name;
-	public Expression expression;
 
-	public VariableAssignment() {}
+    public VariableReference name;
+    public Expression expression;
 
-	// Added constructor
-	public VariableAssignment(Expression expression, VariableReference variableReference) {
-		this.name = variableReference;
-		this.expression = expression;
-	}
+    public VariableAssignment() {
+    }
 
-	@Override
-	public String getNodeLabel() {
-		return "VariableAssignment (" + name.name + ")";
-	}
+    // Added constructor
+    public VariableAssignment(Expression expression, VariableReference variableReference) {
+        this.name = variableReference;
+        this.expression = expression;
+    }
 
-	@Override
-	public ASTNode addChild(ASTNode child) {
-		if(name == null) {
-			name = (VariableReference) child;
-		} else if(expression == null) {
-			expression = (Expression) child;
-		}
+    @Override
+    public String getNodeLabel() {
+        return "VariableAssignment (" + name.name + ")";
+    }
 
-		return this;
-	}
+    @Override
+    public ASTNode addChild(ASTNode child) {
+        if (name == null) {
+            name = (VariableReference) child;
+        } else if (expression == null) {
+            expression = (Expression) child;
+        }
 
-	@Override
-	public ArrayList<ASTNode> getChildren() {
+        return this;
+    }
 
-		ArrayList<ASTNode> children = new ArrayList<>();
-		if(name != null)
-			children.add(name);
-		if(expression != null)
-			children.add(expression);
-		return children;
-	}
+    @Override
+    public ArrayList<ASTNode> getChildren() {
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
-		VariableAssignment that = (VariableAssignment) o;
-		return Objects.equals(name, that.name) &&
-				Objects.equals(expression, that.expression);
-	}
+        ArrayList<ASTNode> children = new ArrayList<>();
+        if (name != null)
+            children.add(name);
+        if (expression != null)
+            children.add(expression);
+        return children;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(name, expression);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        VariableAssignment that = (VariableAssignment) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(expression, that.expression);
+    }
 
-	@Override
-	public ASTNode removeChild(ASTNode child) {
-		if (child instanceof VariableReference) {
-			name = null;
-		} else if(child instanceof Expression) {
-			expression = null;
-		}
-		return this;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, expression);
+    }
+
+    @Override
+    public ASTNode removeChild(ASTNode child) {
+        if (child instanceof VariableReference) {
+            name = null;
+        } else if (child instanceof Expression) {
+            expression = null;
+        }
+        return this;
+    }
 }

@@ -6,7 +6,8 @@ public class IfStatement extends ASTNode {
     public IfClause ifClause;
     public ElseClause elseClause;
 
-    public IfStatement() {}
+    public IfStatement() {
+    }
 
     public IfStatement(IfClause ifClause, ElseClause elseClause) {
         this.ifClause = ifClause;
@@ -17,12 +18,13 @@ public class IfStatement extends ASTNode {
     public String getNodeLabel() {
         return "If_Statement";
     }
+
     @Override
     public ArrayList<ASTNode> getChildren() {
         ArrayList<ASTNode> children = new ArrayList<>();
-        if(ifClause != null)
+        if (ifClause != null)
             children.add(ifClause);
-        if(elseClause != null)
+        if (elseClause != null)
             children.add(elseClause);
 
         return children;
@@ -30,7 +32,7 @@ public class IfStatement extends ASTNode {
 
     @Override
     public ASTNode addChild(ASTNode child) {
-        if(child instanceof IfClause)
+        if (child instanceof IfClause)
             ifClause = (IfClause) child;
         else if (child instanceof ElseClause)
             elseClause = (ElseClause) child;

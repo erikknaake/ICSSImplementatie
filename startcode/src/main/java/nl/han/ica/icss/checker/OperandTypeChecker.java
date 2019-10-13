@@ -9,16 +9,16 @@ import nl.han.ica.icss.typesystem.TypeResolver;
 public class OperandTypeChecker implements IChecker {
     @Override
     public void check(ASTNode node) {
-        if(node instanceof Operation) {
+        if (node instanceof Operation) {
             Operation operation = (Operation) node;
             ExpressionType lhsType = TypeResolver.resolve(operation.lhs);
             ExpressionType rhsType = TypeResolver.resolve(operation.rhs);
-            if(operation instanceof MultiplyOperation) {
-                if(lhsType != ExpressionType.SCALAR && rhsType != ExpressionType.SCALAR) {
+            if (operation instanceof MultiplyOperation) {
+                if (lhsType != ExpressionType.SCALAR && rhsType != ExpressionType.SCALAR) {
                     operation.setError("At least one operand of an multiplication must be a scalar");
                 }
             } else {
-                if(lhsType != rhsType) {
+                if (lhsType != rhsType) {
                     operation.setError("Operands must be of equal type (got " + lhsType + " and " + rhsType + ")");
                 }
             }

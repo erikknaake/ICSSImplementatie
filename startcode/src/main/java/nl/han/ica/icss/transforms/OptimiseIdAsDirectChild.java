@@ -12,10 +12,10 @@ public class OptimiseIdAsDirectChild implements Transform {
     }
 
     private void optimiseIdAsDirectChild(ASTNode node) {
-        for(ASTNode child : node.getChildren()) {
-            if(child instanceof CompositeSelector) {
+        for (ASTNode child : node.getChildren()) {
+            if (child instanceof CompositeSelector) {
                 CompositeSelector compositeSelector = (CompositeSelector) child;
-                if(compositeSelector.operator.operator.equals(">") && compositeSelector.rhs instanceof IdSelector) {
+                if (compositeSelector.operator.operator.equals(">") && compositeSelector.rhs instanceof IdSelector) {
                     optimiseId(node, compositeSelector, (IdSelector) compositeSelector.rhs);
                 } else {
                     optimiseIdAsDirectChild(child);

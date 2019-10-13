@@ -30,11 +30,11 @@ public class Checker {
 
     private void check(ASTNode node) {
         variableDefiner.tryDefineVariable(node);
-        for(IChecker checker: checkers) {
+        for (IChecker checker : checkers) {
             checker.check(node);
         }
-        if(node.getChildren().size() != 0) {
-            for(ASTNode astNode : node.getChildren()) {
+        if (node.getChildren().size() != 0) {
+            for (ASTNode astNode : node.getChildren()) {
                 check(astNode);
             }
         }

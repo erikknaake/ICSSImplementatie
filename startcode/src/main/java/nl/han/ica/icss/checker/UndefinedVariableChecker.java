@@ -8,8 +8,8 @@ public class UndefinedVariableChecker implements IChecker {
 
     @Override
     public void check(ASTNode node) {
-       if(node instanceof VariableReference) {
-            if(!VariableDefiner.getInstance().isVariableDefined((VariableReference) node)) {
+        if (node instanceof VariableReference) {
+            if (!VariableDefiner.getInstance().isVariableDefined((VariableReference) node)) {
                 node.setError("Variable " + ((VariableReference) node).name + " is not defined");
             }
         }

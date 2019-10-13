@@ -7,13 +7,13 @@ import nl.han.ica.icss.ast.selectors.TagSelector;
 
 public class SelectorFactory {
     public static Selector make(ICSSParser.SelectorContext selectorContext) {
-        if(selectorContext.class_selector() != null)
+        if (selectorContext.class_selector() != null)
             return makeClassSelector(selectorContext.class_selector());
-        else if(selectorContext.id_selector() != null)
+        else if (selectorContext.id_selector() != null)
             return makeIdSelector(selectorContext.id_selector());
-        else if(selectorContext.tag_selector() != null)
+        else if (selectorContext.tag_selector() != null)
             return makeTagSelector(selectorContext.tag_selector());
-        else if(selectorContext.selector_composition_operator() != null)
+        else if (selectorContext.selector_composition_operator() != null)
             return CompositeSelectorFactory.make(selectorContext);
         else
             throw new IllegalStateException("No selector found in SelectorContext");

@@ -1,6 +1,7 @@
 package nl.han.ica.icss.transforms;
 
-import nl.han.ica.icss.ast.*;
+import nl.han.ica.icss.ast.ASTNode;
+import nl.han.ica.icss.ast.Stylerule;
 
 import java.util.ArrayList;
 

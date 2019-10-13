@@ -8,6 +8,7 @@ public class PropertyName extends ASTNode {
         super();
         name = "undefined";
     }
+
     public PropertyName(String name) {
         super();
         this.name = name;

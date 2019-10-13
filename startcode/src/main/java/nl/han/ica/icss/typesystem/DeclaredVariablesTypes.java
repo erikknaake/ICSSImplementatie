@@ -27,6 +27,7 @@ public class DeclaredVariablesTypes {
     /**
      * Returns the type of the declared variable
      * Returns null when the variable is not defined
+     *
      * @return Type of variable
      */
     public ExpressionType getVariableType(String variableName) {
@@ -34,7 +35,7 @@ public class DeclaredVariablesTypes {
     }
 
     public static DeclaredVariablesTypes getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new DeclaredVariablesTypes();
         return instance;
     }

@@ -74,8 +74,7 @@ public class EvalExpressions implements Transform {
         if (astNode instanceof Operation) {
             Literal value = calculateOperation((Operation) astNode);
             NodeTransformer.replaceChild(parent, astNode, value);
-        }
-        else if(astNode instanceof VariableReference && !(parent instanceof VariableAssignment)) {
+        } else if (astNode instanceof VariableReference && !(parent instanceof VariableAssignment)) {
             Literal value = getVariableValue((VariableReference) astNode);
             NodeTransformer.replaceChild(parent, astNode, value);
         }
@@ -89,17 +88,16 @@ public class EvalExpressions implements Transform {
         int rightHandSideValue = Integer.parseInt(getValue(operation.rhs));
 
         int calculatedValue = Integer.MIN_VALUE;
-        if(operation instanceof MultiplyOperation) {
+        if (operation instanceof MultiplyOperation) {
             calculatedValue = leftHandSideValue * rightHandSideValue;
-        } else if(operation instanceof AddOperation) {
+        } else if (operation instanceof AddOperation) {
             calculatedValue = leftHandSideValue + rightHandSideValue;
-        } else if(operation instanceof SubtractOperation) {
+        } else if (operation instanceof SubtractOperation) {
             calculatedValue = leftHandSideValue - rightHandSideValue;
         }
-        if(calculatedValue != Integer.MIN_VALUE) {
+        if (calculatedValue != Integer.MIN_VALUE) {
             return ValueFactory.make(type, String.valueOf(calculatedValue));
-        }
-        else
+        } else
             throw new IllegalArgumentException("Cannot calculate operation: " + operation);
     }
 
@@ -117,11 +115,11 @@ public class EvalExpressions implements Transform {
             return ((BoolLiteral) node).value ? "TRUE" : "FALSE";
         else if (node instanceof ColorLiteral)
             return ((ColorLiteral) node).value;
-        else if(node instanceof Operation)
+        else if (node instanceof Operation)
             return getValue(calculateOperation((Operation) node));
         else
             throw new IllegalArgumentException("Cannot find a valid node for: " + node);
-}
+    }
 
     private Literal getVariableValue(VariableReference node) {
         return variableValues.get(node.name);

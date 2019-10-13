@@ -20,7 +20,7 @@ public class VariableValues {
     }
 
     public static VariableValues getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new VariableValues();
         return instance;
     }

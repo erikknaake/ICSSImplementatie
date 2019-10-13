@@ -18,13 +18,13 @@ public class VariableDefiner {
     }
 
     public static VariableDefiner getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new VariableDefiner();
         return instance;
     }
 
     public void tryDefineVariable(ASTNode node) {
-        if(node instanceof VariableAssignment) {
+        if (node instanceof VariableAssignment) {
             declareVariable((VariableAssignment) node);
         }
     }

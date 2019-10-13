@@ -9,12 +9,12 @@ public class NoOperationsOnColorsChecker implements IChecker {
 
     @Override
     public void check(ASTNode node) {
-        if(node instanceof Operation) {
+        if (node instanceof Operation) {
             Operation operation = (Operation) node;
-            if(TypeResolver.resolve(operation.lhs) == ExpressionType.COLOR) {
+            if (TypeResolver.resolve(operation.lhs) == ExpressionType.COLOR) {
                 setErrorOnColorNode(operation);
             }
-            if(TypeResolver.resolve(operation.rhs) == ExpressionType.COLOR) {
+            if (TypeResolver.resolve(operation.rhs) == ExpressionType.COLOR) {
                 setErrorOnColorNode(operation);
             }
         }

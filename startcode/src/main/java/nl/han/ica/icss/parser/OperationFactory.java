@@ -10,11 +10,11 @@ public class OperationFactory {
 
     public static Operation make(ICSSParser.ExpressionContext expressionContext, Expression lhs, Expression rhs) {
         Operation result;
-        if(expressionContext.add_operation() != null)
-            result =  makeAddOperation();
-        else if(expressionContext.subtract_operation() != null)
-            result =  makeSubtractOperation();
-        else if(expressionContext.multiply_operation() != null)
+        if (expressionContext.add_operation() != null)
+            result = makeAddOperation();
+        else if (expressionContext.subtract_operation() != null)
+            result = makeSubtractOperation();
+        else if (expressionContext.multiply_operation() != null)
             result = makeMultiplyOperation();
         else
             throw new IllegalStateException("No valid operation found in OperationContext");

@@ -10,6 +10,7 @@ public class ColorLiteral extends Literal {
     public ColorLiteral(String value) {
         this.value = value;
     }
+
     @Override
     public String getNodeLabel() {
         return "Color literal (" + value + ")";
@@ -23,6 +24,7 @@ public class ColorLiteral extends Literal {
         ColorLiteral that = (ColorLiteral) o;
         return Objects.equals(value, that.value);
     }
+
     @Override
     public int hashCode() {
 

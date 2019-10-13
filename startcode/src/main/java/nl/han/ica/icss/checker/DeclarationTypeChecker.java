@@ -11,36 +11,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DeclarationTypeChecker implements IChecker {
+    public static final ExpressionType[] SIZE_TYPES = {
+            ExpressionType.PIXEL,
+            ExpressionType.PERCENTAGE
+    };
+    public static final ExpressionType[] COLOR_TYPE = {
+            ExpressionType.COLOR
+    };
+
     private static Map<String, ExpressionType[]> allowedDeclarationTypes;
 
     public DeclarationTypeChecker() {
-        if(allowedDeclarationTypes == null)
+        if (allowedDeclarationTypes == null)
             initializeAllowedDeclarationTypes();
     }
 
     private void initializeAllowedDeclarationTypes() {
         allowedDeclarationTypes = new HashMap<>();
-        allowedDeclarationTypes.put("color", new ExpressionType[] {
-                ExpressionType.COLOR
-        });
-        allowedDeclarationTypes.put("background-color", new ExpressionType[] {
-                ExpressionType.COLOR
-        });
-        allowedDeclarationTypes.put("width", new ExpressionType[] {
-                ExpressionType.PIXEL,
-                ExpressionType.PERCENTAGE
-        });
-        allowedDeclarationTypes.put("height", new ExpressionType[] {
-                ExpressionType.PIXEL,
-                ExpressionType.PERCENTAGE
-        });
+        allowedDeclarationTypes.put("color", COLOR_TYPE);
+        allowedDeclarationTypes.put("background-color", COLOR_TYPE);
+        allowedDeclarationTypes.put("width", SIZE_TYPES);
+        allowedDeclarationTypes.put("height", SIZE_TYPES);
     }
 
     @Override
     public void check(ASTNode node) {
-        if(node instanceof Declaration) {
+        if (node instanceof Declaration) {
             Declaration declaration = (Declaration) node;
-            if(!isDeclarationTypeAllowed(declaration.property, declaration.expression)) {
+            if (!isDeclarationTypeAllowed(declaration.property, declaration.expression)) {
                 declaration.expression.setError("Expression type not allowed here, check the style attribute");
             }
         }
@@ -52,9 +50,9 @@ public class DeclarationTypeChecker implements IChecker {
 
     private boolean isDeclarationTypeAllowed(String declarationAttribute, ExpressionType expressionType) {
         ExpressionType[] expressionTypes = allowedDeclarationTypes.get(declarationAttribute);
-        if(expressionTypes != null) {
-            for(ExpressionType allowedType : expressionTypes) {
-                if(allowedType == expressionType)
+        if (expressionTypes != null) {
+            for (ExpressionType allowedType : expressionTypes) {
+                if (allowedType == expressionType)
                     return true;
             }
         }

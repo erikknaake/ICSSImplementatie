@@ -1,15 +1,6 @@
 package nl.han.ica.icss.gui;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.*;
-
-//We use this google library, because it makes life so much easier when
-//reading the examples icss files as packaged resource
 import com.google.common.io.Resources;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -23,6 +14,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nl.han.ica.icss.Pipeline;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
+
+//We use this google library, because it makes life so much easier when
+//reading the examples icss files as packaged resource
+
 @SuppressWarnings("restriction")
 public class MainGui extends Application {
 
@@ -32,7 +33,6 @@ public class MainGui extends Application {
             "level1.icss",
             "level2.icss",
             "level3.icss",
-            "expressions.icss",
             "multiselector.icss",
             "compositeselector.icss",
             "ifelse.icss",
@@ -121,7 +121,7 @@ public class MainGui extends Application {
         Menu exampleFilesMenu = new Menu("Load example ICSS");
 
         //We load them as resources straight from the application's jar
-        for(String level: examples) {
+        for (String level : examples) {
 
             MenuItem levelItem = new MenuItem(level);
             levelItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -201,7 +201,7 @@ public class MainGui extends Application {
         clear();
         feedbackPane.addLine("Parsing...");
         pipeline.parseString(inputPane.getText());
-        for(String e : pipeline.getErrors()) {
+        for (String e : pipeline.getErrors()) {
             feedbackPane.addLine(e);
         }
         if (pipeline.isParsed()) {
@@ -226,14 +226,14 @@ public class MainGui extends Application {
     }
 
     private void transform() {
-       clear();
-       feedbackPane.addLine("Applying transformations...");
-       pipeline.transform();
-       if (pipeline.isTransformed()) {
-           feedbackPane.addLine("Transformation succeeded");
-       }
-       astPane.update(pipeline.getAST());
-       updateToolbar();
+        clear();
+        feedbackPane.addLine("Applying transformations...");
+        pipeline.transform();
+        if (pipeline.isTransformed()) {
+            feedbackPane.addLine("Transformation succeeded");
+        }
+        astPane.update(pipeline.getAST());
+        updateToolbar();
     }
 
     private void generate() {

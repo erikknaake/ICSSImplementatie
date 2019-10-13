@@ -8,10 +8,10 @@ import nl.han.ica.icss.typesystem.TypeResolver;
 public class ConditionalIfChecker implements IChecker {
     @Override
     public void check(ASTNode node) {
-        if(node instanceof IfClause) {
+        if (node instanceof IfClause) {
             IfClause ifClause = (IfClause) node;
             ExpressionType expressionType = TypeResolver.resolve(ifClause.conditionalExpression);
-            if(expressionType != ExpressionType.BOOL) {
+            if (expressionType != ExpressionType.BOOL) {
                 ifClause.conditionalExpression.setError("Expected conditional expression but got " + expressionType + " expression");
             }
         }

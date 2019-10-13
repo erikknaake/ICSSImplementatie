@@ -11,7 +11,7 @@ public class BodyFactory {
 
     public static ArrayList<ASTNode> make(ICSSParser.BodyContext bodyContext) {
         ArrayList<ASTNode> body = new ArrayList<>();
-        for(ICSSParser.StatementContext statementContext : bodyContext.statement()) {
+        for (ICSSParser.StatementContext statementContext : bodyContext.statement()) {
             body.add(StatementFactory.make(statementContext));
         }
         return body;
@@ -19,7 +19,7 @@ public class BodyFactory {
 
     public static ArrayList<ASTNode> make(ICSSParser.Stylerule_bodyContext stylerule_bodyContext) {
         ArrayList<ASTNode> body = new ArrayList<>();
-        for(ICSSParser.Stylerule_statementContext statementContext : stylerule_bodyContext.stylerule_statement()) {
+        for (ICSSParser.Stylerule_statementContext statementContext : stylerule_bodyContext.stylerule_statement()) {
             body.add(StatementFactory.make(statementContext));
         }
         return body;

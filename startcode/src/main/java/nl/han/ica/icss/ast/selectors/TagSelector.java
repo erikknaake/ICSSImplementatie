@@ -14,6 +14,7 @@ public class TagSelector extends Selector {
     public String getNodeLabel() {
         return "TagSelector " + tag;
     }
+
     public String toString() {
         return tag;
     }
