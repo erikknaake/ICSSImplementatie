@@ -32,7 +32,7 @@ public class Checker {
 
     private void check(ASTNode node) {
         boolean isScope = node instanceof Stylerule || node instanceof IfStatement;
-        if(isScope)
+        if (isScope)
             variableDefiner.pushScope();
 
         variableDefiner.tryDefineVariable(node);

@@ -1,6 +1,8 @@
 package nl.han.ica.icss.typesystem;
 
-import nl.han.ica.icss.ast.*;
+import nl.han.ica.icss.ast.ASTNode;
+import nl.han.ica.icss.ast.VariableAssignment;
+import nl.han.ica.icss.ast.VariableReference;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
 public class VariableDefiner {

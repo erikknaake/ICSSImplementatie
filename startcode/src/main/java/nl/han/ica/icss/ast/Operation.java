@@ -49,9 +49,9 @@ public abstract class Operation extends Expression {
     @Override
     public ExpressionType getType() {
         ExpressionType lhsType = lhs.getType();
-        if(lhsType != null && lhsType != ExpressionType.SCALAR && lhsType != ExpressionType.UNDEFINED) {
+        if (lhsType != null && lhsType != ExpressionType.SCALAR && lhsType != ExpressionType.UNDEFINED) {
             return lhsType;
         }
-        return  rhs.getType();
+        return rhs.getType();
     }
 }

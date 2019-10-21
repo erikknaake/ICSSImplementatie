@@ -46,9 +46,9 @@ public class VariableValues {
     }
 
     public Literal get(String key) {
-        for(Map<String, Literal> variables : variableValues) {
+        for (Map<String, Literal> variables : variableValues) {
             Literal literal = variables.get(key);
-            if(literal != null)
+            if (literal != null)
                 return literal;
         }
         return null;

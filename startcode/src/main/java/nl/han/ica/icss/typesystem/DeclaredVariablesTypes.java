@@ -43,9 +43,9 @@ public class DeclaredVariablesTypes {
      * @return Type of variable
      */
     public ExpressionType getVariableType(String variableName) {
-        for(Map<String, ExpressionType> variables : declaredVariables) {
+        for (Map<String, ExpressionType> variables : declaredVariables) {
             ExpressionType type = variables.get(variableName);
-            if(type != null)
+            if (type != null)
                 return type;
         }
         return null;
