@@ -34,7 +34,7 @@ public class VariableDefiner {
     }
 
     private void declareVariable(VariableAssignment variableAssignment) {
-        defineVariable(variableAssignment.name, TypeResolver.resolve(variableAssignment.expression));
+        defineVariable(variableAssignment.name, variableAssignment.expression.getType());
     }
 
     private void defineVariable(VariableReference variableReference, ExpressionType type) {

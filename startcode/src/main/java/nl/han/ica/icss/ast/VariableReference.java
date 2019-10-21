@@ -1,6 +1,7 @@
 package nl.han.ica.icss.ast;
 
 import nl.han.ica.icss.ast.types.ExpressionType;
+import nl.han.ica.icss.typesystem.DeclaredVariablesTypes;
 import nl.han.ica.icss.typesystem.VariableValues;
 
 import java.util.Objects;
@@ -36,11 +37,12 @@ public class VariableReference extends Expression {
 
     @Override
     public Literal eval() {
-        return VariableValues.getInstance().get(name).eval();
+        Literal variable = VariableValues.getInstance().get(name);
+        return variable.eval();
     }
 
     @Override
     public ExpressionType getType() {
-        return VariableValues.getInstance().get(name).getType();
+        return DeclaredVariablesTypes.getInstance().getVariableType(name);
     }
 }

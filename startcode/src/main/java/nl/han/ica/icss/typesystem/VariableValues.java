@@ -30,7 +30,7 @@ public class VariableValues {
     }
 
     public void put(String key, Literal value) {
-        declaredVariables.addVariable(key, TypeResolver.resolve(value));
+        declaredVariables.addVariable(key, value.getType());
         variableValues.put(key, value);
     }
 

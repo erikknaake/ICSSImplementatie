@@ -5,7 +5,6 @@ import nl.han.ica.icss.ast.Declaration;
 import nl.han.ica.icss.ast.Expression;
 import nl.han.ica.icss.ast.PropertyName;
 import nl.han.ica.icss.ast.types.ExpressionType;
-import nl.han.ica.icss.typesystem.TypeResolver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +44,7 @@ public class DeclarationTypeChecker implements IChecker {
     }
 
     private boolean isDeclarationTypeAllowed(PropertyName propertyName, Expression expression) {
-        return isDeclarationTypeAllowed(propertyName.name, TypeResolver.resolve(expression));
+        return isDeclarationTypeAllowed(propertyName.name, expression.getType());
     }
 
     private boolean isDeclarationTypeAllowed(String declarationAttribute, ExpressionType expressionType) {
