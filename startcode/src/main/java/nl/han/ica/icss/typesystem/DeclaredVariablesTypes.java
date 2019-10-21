@@ -3,6 +3,8 @@ package nl.han.ica.icss.typesystem;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Keeps track of all variable types
@@ -10,18 +12,28 @@ import java.util.HashMap;
 public class DeclaredVariablesTypes {
     private static DeclaredVariablesTypes instance;
 
-    private HashMap<String, ExpressionType> declaredVariables;
+    private LinkedList<Map<String, ExpressionType>> declaredVariables;
 
     private DeclaredVariablesTypes() {
-        declaredVariables = new HashMap<>();
+        declaredVariables = new LinkedList<>();
+        pushScope();
+    }
+
+    public void pushScope() {
+        declaredVariables.addFirst(new HashMap<>());
+    }
+
+    public void popScope() {
+        declaredVariables.removeFirst();
     }
 
     public void addVariable(String variableName, ExpressionType type) {
-        declaredVariables.put(variableName, type);
+        declaredVariables.getFirst().put(variableName, type);
     }
 
     public void clear() {
         declaredVariables.clear();
+        pushScope();
     }
 
     /**
@@ -31,7 +43,12 @@ public class DeclaredVariablesTypes {
      * @return Type of variable
      */
     public ExpressionType getVariableType(String variableName) {
-        return declaredVariables.get(variableName);
+        for(Map<String, ExpressionType> variables : declaredVariables) {
+            ExpressionType type = variables.get(variableName);
+            if(type != null)
+                return type;
+        }
+        return null;
     }
 
     public static DeclaredVariablesTypes getInstance() {

@@ -1,8 +1,6 @@
 package nl.han.ica.icss.typesystem;
 
-import nl.han.ica.icss.ast.ASTNode;
-import nl.han.ica.icss.ast.VariableAssignment;
-import nl.han.ica.icss.ast.VariableReference;
+import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
 public class VariableDefiner {
@@ -40,4 +38,13 @@ public class VariableDefiner {
     private void defineVariable(VariableReference variableReference, ExpressionType type) {
         declaredVariables.addVariable(variableReference.name, type);
     }
+
+    public void pushScope() {
+        declaredVariables.pushScope();
+    }
+
+    public void popScope() {
+        declaredVariables.pushScope();
+    }
+
 }

@@ -21,6 +21,10 @@ public class EvalExpressions implements Transform {
     }
 
     private void replaceExpressions(ASTNode node) {
+        boolean isScope = node instanceof Stylerule || node instanceof IfStatement;
+        if(isScope)
+            variableValues.pushScope();
+
         // Use of iterator to prevent ConcurrentModification when removing a variable assignment
         Iterator<ASTNode> iterator = node.getChildren().iterator();
         while (iterator.hasNext()) {
@@ -34,6 +38,9 @@ public class EvalExpressions implements Transform {
                 replaceExpression(node, child);
             }
         }
+
+        if(isScope)
+            variableValues.popScope();
     }
 
     private void AssignVariableAndRemoveVariableDeclaration(ASTNode node, VariableAssignment variableAssignment) {
