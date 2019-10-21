@@ -1,6 +1,7 @@
 package nl.han.ica.icss.ast.literals;
 
 import nl.han.ica.icss.ast.Literal;
+import nl.han.ica.icss.ast.types.ExpressionType;
 
 import java.util.Objects;
 
@@ -33,6 +34,16 @@ public class ColorLiteral extends Literal {
 
     @Override
     public String getCSSString() {
+        return value;
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return ExpressionType.COLOR;
+    }
+
+    @Override
+    public String getValue() {
         return value;
     }
 }

@@ -1,6 +1,7 @@
 package nl.han.ica.icss.ast.literals;
 
 import nl.han.ica.icss.ast.Literal;
+import nl.han.ica.icss.ast.types.ExpressionType;
 
 import java.util.Objects;
 
@@ -37,5 +38,15 @@ public class PixelLiteral extends Literal {
     @Override
     public String getCSSString() {
         return value + "px";
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return ExpressionType.PIXEL;
+    }
+
+    @Override
+    public String getValue() {
+        return String.valueOf(value);
     }
 }

@@ -1,5 +1,7 @@
 package nl.han.ica.icss.ast;
 
+import nl.han.ica.icss.ast.types.ExpressionType;
+
 import java.util.ArrayList;
 
 public abstract class Operation extends Expression {
@@ -35,5 +37,21 @@ public abstract class Operation extends Expression {
             rhs = null;
         }
         return this;
+    }
+
+    protected abstract Literal evalOperation(int lhs, int rhs);
+
+    @Override
+    public Literal eval() {
+        return evalOperation(Integer.parseInt(lhs.eval().getValue()), Integer.parseInt(rhs.eval().getValue()));
+    }
+
+    @Override
+    public ExpressionType getType() {
+        ExpressionType lhsType = lhs.getType();
+        if(lhsType != null && lhsType != ExpressionType.SCALAR && lhsType != ExpressionType.UNDEFINED) {
+            return lhsType;
+        }
+        return  rhs.getType();
     }
 }
