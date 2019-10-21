@@ -44,7 +44,7 @@ public class VariableDefiner {
     }
 
     public void popScope() {
-        declaredVariables.pushScope();
+        declaredVariables.popScope();
     }
 
 }

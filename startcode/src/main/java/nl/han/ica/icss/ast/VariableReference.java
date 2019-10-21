@@ -37,7 +37,7 @@ public class VariableReference extends Expression {
     @Override
     public Literal eval() {
         Literal variable = VariableValues.getInstance().get(name);
-        return variable.eval();
+        return variable == null ? null : variable.eval();
     }
 
     @Override
