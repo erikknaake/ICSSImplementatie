@@ -1,9 +1,6 @@
 package nl.han.ica.icss.checker;
 
-import nl.han.ica.icss.ast.AST;
-import nl.han.ica.icss.ast.ASTNode;
-import nl.han.ica.icss.ast.IfStatement;
-import nl.han.ica.icss.ast.Stylerule;
+import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.typesystem.VariableDefiner;
 
 import java.util.ArrayList;
@@ -31,7 +28,7 @@ public class Checker {
     }
 
     private void check(ASTNode node) {
-        boolean isScope = node instanceof Stylerule || node instanceof IfStatement;
+        boolean isScope = node instanceof Stylerule || node instanceof IfClause || node instanceof ElseClause;
         if (isScope)
             variableDefiner.pushScope();
 

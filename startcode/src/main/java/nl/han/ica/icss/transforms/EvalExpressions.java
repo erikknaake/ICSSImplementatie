@@ -21,7 +21,7 @@ public class EvalExpressions implements Transform {
     }
 
     private void replaceExpressions(ASTNode node) {
-        boolean isScope = node instanceof Stylerule || node instanceof IfStatement;
+        boolean isScope = node instanceof Stylerule || node instanceof IfClause || node instanceof ElseClause;
         if (isScope) {
             variableValues.pushScope();
         }

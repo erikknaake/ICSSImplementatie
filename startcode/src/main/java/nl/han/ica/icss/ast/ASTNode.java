@@ -89,7 +89,7 @@ public class ASTNode {
     protected final String getChildrenCSSString() {
         StringBuilder result = new StringBuilder();
         for (ASTNode node : getChildren()) {
-            result.append(node.getCSSString()).append("\n\n");
+            result.append(node.getCSSString()).append(System.lineSeparator()).append(System.lineSeparator());
         }
         return result.toString();
     }

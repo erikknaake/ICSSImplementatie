@@ -73,7 +73,7 @@ public class Stylerule extends ASTNode {
 
         addSelectorsCSSString(stringBuilder);
 
-        stringBuilder.append(" {\n\t");
+        stringBuilder.append(" {").append(System.lineSeparator()).append("\t");
         addBodyCSSString(stringBuilder);
         stringBuilder.append("}");
 
@@ -82,7 +82,7 @@ public class Stylerule extends ASTNode {
 
     private void addBodyCSSString(StringBuilder stringBuilder) {
         for (int i = 0; i < body.size(); i++) {
-            stringBuilder.append(body.get(i).getCSSString()).append("\n");
+            stringBuilder.append(body.get(i).getCSSString()).append(System.lineSeparator());
             if (i < body.size() - 1)
                 stringBuilder.append("\t");
         }

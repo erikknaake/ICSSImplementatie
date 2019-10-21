@@ -15,5 +15,8 @@ Hiervoor is ook een transform toegevoegd die kijkt of een id een direct kind moe
 3. Er is een optionele else tak toegevoegd aan if statements. ```if[Condition] { ... } else { ... }```.
 Hiervoor zijn de tests van niveau 3 aangepast, zodat de toegevoegde class ```IfStatement``` daarin worden gebruikt.
 Deze class houdt namelijk bij of er een else tak bij een if clause hoort.
+4. Variabelen kunnen in een scope worden toegevoegd, zoals een if clause, else clause of stylerule.
+De checker kijkt dan ook of de variabele wel in de goede scope zit, dit doet hij door vanaf de meest nauwkeurige scope terug te kijken
+naar globalare scopes.
 
 In overleg met de docent zijn deze taaluitbreidingen 10 punten waard.
