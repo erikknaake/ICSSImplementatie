@@ -5,7 +5,7 @@ import nl.han.ica.icss.ast.VariableAssignment;
 import nl.han.ica.icss.ast.VariableReference;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
-public class VariableDefiner {
+public class VariableDefiner implements IScopeable {
     private DeclaredVariablesTypes declaredVariables;
     private static VariableDefiner instance;
 

@@ -5,7 +5,7 @@ import nl.han.ica.icss.ast.Literal;
 /**
  * Keeps track of all variables that have been assigned
  */
-public class VariableValues {
+public class VariableValues implements IScopeable {
     private IScopedMap<String, Literal> variableValues;
 
     private static VariableValues instance;

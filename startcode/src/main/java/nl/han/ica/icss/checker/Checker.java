@@ -33,9 +33,8 @@ public class Checker {
 
     private void initializeWalker() {
         walker = new ASTWalker(
-                (ASTNode node) -> variableDefiner.pushScope(),
                 this::checkNode,
-                (ASTNode node) -> variableDefiner.popScope());
+                variableDefiner);
     }
 
     public void check(AST ast) {

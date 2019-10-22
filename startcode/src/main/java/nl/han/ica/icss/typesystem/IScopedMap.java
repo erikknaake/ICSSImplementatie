@@ -1,6 +1,6 @@
 package nl.han.ica.icss.typesystem;
 
-public interface IScopedMap<K, V> {
+public interface IScopedMap<K, V> extends IScopeable {
     void clear();
 
     void pushScope();

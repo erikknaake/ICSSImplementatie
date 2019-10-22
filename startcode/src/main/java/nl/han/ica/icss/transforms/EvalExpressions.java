@@ -15,9 +15,8 @@ public class EvalExpressions implements Transform {
         variableValues.clear();
 
         walker = new ASTWalker(
-                (ASTNode node) -> variableValues.pushScope(),
                 this::replaceExpressions,
-                (ASTNode node) -> variableValues.popScope());
+                variableValues);
     }
 
     @Override

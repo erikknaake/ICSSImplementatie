@@ -1,6 +1,7 @@
 package nl.han.ica.icss;
 
 import nl.han.ica.icss.ast.*;
+import nl.han.ica.icss.typesystem.IScopeable;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -11,16 +12,16 @@ import java.util.Stack;
  */
 public class ASTWalker {
 
-    private IWalkAction onEnterScope, onEnterNode, onExitScope;
+    private IWalkAction onEnterNode;
+    private IScopeable scopeable;
     // Keeps track of parent nodes, so replacements can be made inside transformers
     private LinkedList<ASTNode> parents;
     // Keeps track of iterators, so child can be removed without causing concurrent modification exceptions
     private Stack<Iterator<ASTNode>> iterators;
 
-    public ASTWalker(IWalkAction onEnterScope, IWalkAction onEnterNode, IWalkAction onExitScope) {
-        this.onEnterScope = onEnterScope;
+    public ASTWalker(IWalkAction onEnterNode, IScopeable scopeable) {
         this.onEnterNode = onEnterNode;
-        this.onExitScope = onExitScope;
+        this.scopeable = scopeable;
         parents = new LinkedList<>();
         iterators = new Stack<>();
     }
@@ -33,14 +34,14 @@ public class ASTWalker {
         parents.addLast(node);
         boolean isScope = node instanceof Stylerule || node instanceof IfClause || node instanceof ElseClause;
         if (isScope)
-            onEnterScope.step(node);
+            scopeable.pushScope();
 
         onEnterNode.step(node);
 
         walkChildren(node);
 
         if (isScope)
-            onExitScope.step(node);
+            scopeable.popScope();
         parents.removeLast();
     }
 
