@@ -35,7 +35,7 @@ public class EvalExpressions implements Transform {
                 AssignVariableAndRemoveVariableDeclaration(node, (VariableAssignment) child);
             }
             if (child instanceof Expression) {
-                replaceExpression(node, child);
+                replaceExpressionWithLiteral((Expression) child, node);
             }
         }
 
@@ -49,18 +49,6 @@ public class EvalExpressions implements Transform {
         removeVariableAssignment(node, variableAssignment);
     }
 
-    private void replaceExpression(ASTNode node, ASTNode child) {
-        if (child instanceof Operation) {
-            replaceOperation((Operation) child);
-        }
-        replaceExpressionWithLiteral((Expression) child, node);
-    }
-
-    private void replaceOperation(Operation operation) {
-        replaceExpressions(operation.lhs);
-        replaceExpressions(operation.rhs);
-    }
-
     private void removeVariableAssignment(ASTNode parent, VariableAssignment child) {
         parent.removeChild(child);
     }
@@ -71,11 +59,8 @@ public class EvalExpressions implements Transform {
     }
 
     private void replaceExpressionWithLiteral(Expression astNode, ASTNode parent) {
-        if (astNode instanceof Operation) {
-            Literal value = astNode.eval();
-            NodeTransformer.replaceChild(parent, astNode, value);
-        } else if (astNode instanceof VariableReference && !(parent instanceof VariableAssignment)) {
-            Literal value = astNode.eval();
+        Literal value = astNode.eval();
+        if (astNode instanceof Operation || (astNode instanceof VariableReference && !(parent instanceof VariableAssignment))) {
             NodeTransformer.replaceChild(parent, astNode, value);
         }
     }

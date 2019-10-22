@@ -10,23 +10,22 @@ import java.util.Map;
  * Keeps track of all variables that have been assigned
  */
 public class VariableValues {
-    private LinkedList<Map<String, Literal>> variableValues;
+    private IScopedMap<String, Literal> variableValues;
 
     private static VariableValues instance;
     private DeclaredVariablesTypes declaredVariables;
 
     private VariableValues() {
-        variableValues = new LinkedList<>();
-        pushScope();
+        variableValues = new ScopedMap<>();
         declaredVariables = DeclaredVariablesTypes.getInstance();
     }
 
     public void pushScope() {
-        variableValues.addFirst(new HashMap<>());
+        variableValues.pushScope();
     }
 
     public void popScope() {
-        variableValues.removeFirst();
+        variableValues.popScope();
     }
 
     public static VariableValues getInstance() {
@@ -37,20 +36,14 @@ public class VariableValues {
 
     public void clear() {
         variableValues.clear();
-        pushScope();
     }
 
     public void put(String key, Literal value) {
         declaredVariables.addVariable(key, value.getType());
-        variableValues.getFirst().put(key, value);
+        variableValues.put(key, value);
     }
 
     public Literal get(String key) {
-        for (Map<String, Literal> variables : variableValues) {
-            Literal literal = variables.get(key);
-            if (literal != null)
-                return literal;
-        }
-        return null;
+        return variableValues.get(key);
     }
 }

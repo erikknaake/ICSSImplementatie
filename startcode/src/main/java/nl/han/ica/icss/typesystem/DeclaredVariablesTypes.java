@@ -12,28 +12,25 @@ import java.util.Map;
 public class DeclaredVariablesTypes {
     private static DeclaredVariablesTypes instance;
 
-    private LinkedList<Map<String, ExpressionType>> declaredVariables;
-
+    private IScopedMap<String, ExpressionType> declaredVariables;
     private DeclaredVariablesTypes() {
-        declaredVariables = new LinkedList<>();
-        pushScope();
+        declaredVariables = new ScopedMap<>();
     }
 
     public void pushScope() {
-        declaredVariables.addFirst(new HashMap<>());
+        declaredVariables.pushScope();
     }
 
     public void popScope() {
-        declaredVariables.removeFirst();
+        declaredVariables.popScope();
     }
 
     public void addVariable(String variableName, ExpressionType type) {
-        declaredVariables.getFirst().put(variableName, type);
+        declaredVariables.put(variableName, type);
     }
 
     public void clear() {
         declaredVariables.clear();
-        pushScope();
     }
 
     /**
@@ -43,12 +40,7 @@ public class DeclaredVariablesTypes {
      * @return Type of variable
      */
     public ExpressionType getVariableType(String variableName) {
-        for (Map<String, ExpressionType> variables : declaredVariables) {
-            ExpressionType type = variables.get(variableName);
-            if (type != null)
-                return type;
-        }
-        return null;
+        return declaredVariables.get(variableName);
     }
 
     public static DeclaredVariablesTypes getInstance() {
