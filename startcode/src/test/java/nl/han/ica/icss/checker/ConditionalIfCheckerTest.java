@@ -12,28 +12,28 @@ public class ConditionalIfCheckerTest extends CheckerTest {
     @Test
     public void conditionalIf() {
         AST ast = CheckConditionalIfFixtures.conditionalIf();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertNoErrors(ast.root);
     }
 
     @Test
     public void conditionalIfViaVariableReference() {
         AST ast = CheckConditionalIfFixtures.conditionalIfViaVariableReference();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertNoErrors(ast.root);
     }
 
     @Test
     public void unconditionalIf() {
         AST ast = CheckConditionalIfFixtures.unconditionalIf();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertHasErrors(ast.root);
     }
 
     @Test
     public void unconditionalIfViaVariableReference() {
         AST ast = CheckConditionalIfFixtures.unconditionalIfViaVariableReference();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertHasErrors(ast.root);
     }
 }

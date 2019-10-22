@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class ScopedMap<K, V> implements IScopedMap<K, V>  {
+public class ScopedMap<K, V> implements IScopedMap<K, V> {
     private LinkedList<Map<K, V>> scopedMap;
 
     public ScopedMap() {

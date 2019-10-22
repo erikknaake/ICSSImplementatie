@@ -94,7 +94,7 @@ public class Pipeline implements ANTLRErrorListener {
         if (ast == null)
             return false;
 
-        (new Checker()).check(this.ast);
+        (new Checker()).checkNode(this.ast);
 
         ArrayList<SemanticError> errors = this.ast.getErrors();
         if (!errors.isEmpty()) {

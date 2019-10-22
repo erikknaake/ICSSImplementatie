@@ -13,14 +13,14 @@ public class NoOperationsOnColorsCheckerTest extends CheckerTest{
     @Test
     public void NoColorOperation() {
         AST ast = CheckOperationsFixtures.noColorOperation();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertNoErrors(ast.root);
     }
 
     @Test
     public void ColorOperation() {
         AST ast = CheckOperationsFixtures.colorOperation();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertHasErrors(ast.root);
     }
 }

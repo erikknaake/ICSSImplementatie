@@ -32,14 +32,14 @@ public class ASTWalker {
     public void walk(ASTNode node) {
         parents.addLast(node);
         boolean isScope = node instanceof Stylerule || node instanceof IfClause || node instanceof ElseClause;
-        if(isScope)
+        if (isScope)
             onEnterScope.step(node);
 
         onEnterNode.step(node);
 
         walkChildren(node);
 
-        if(isScope)
+        if (isScope)
             onExitScope.step(node);
         parents.removeLast();
     }
@@ -47,7 +47,7 @@ public class ASTWalker {
     private void walkChildren(ASTNode node) {
         Iterator<ASTNode> currentIterator = node.getChildren().iterator();
         iterators.push(currentIterator);
-        while(currentIterator.hasNext()) {
+        while (currentIterator.hasNext()) {
             walk(currentIterator.next());
         }
         iterators.pop();

@@ -12,28 +12,28 @@ public class OperandTypeCheckerTest extends CheckerTest {
     @Test
     public void multiplyWithOneScalar() {
         AST ast = CheckOperandTypeFixtures.multiplyWithOneScalar();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertNoErrors(ast.root);
     }
 
     @Test
     public void multiplyWithoutScalars() {
         AST ast = CheckOperandTypeFixtures.multiplyWithoutScalar();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertHasErrors(ast.root);
     }
 
     @Test
     public void addWithEqualTypes() {
         AST ast = CheckOperandTypeFixtures.addWithEqualTypes();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertNoErrors(ast.root);
     }
 
     @Test
     public void addWithUnequalTypes() {
         AST ast = CheckOperandTypeFixtures.addWithUnequalTypes();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertHasErrors(ast.root);
     }
 }

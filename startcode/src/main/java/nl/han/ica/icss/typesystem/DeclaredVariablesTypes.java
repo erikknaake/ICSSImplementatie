@@ -2,10 +2,6 @@ package nl.han.ica.icss.typesystem;
 
 import nl.han.ica.icss.ast.types.ExpressionType;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-
 /**
  * Keeps track of all variable types
  */
@@ -13,6 +9,7 @@ public class DeclaredVariablesTypes {
     private static DeclaredVariablesTypes instance;
 
     private IScopedMap<String, ExpressionType> declaredVariables;
+
     private DeclaredVariablesTypes() {
         declaredVariables = new ScopedMap<>();
     }

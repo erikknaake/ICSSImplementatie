@@ -12,42 +12,42 @@ public class UndefinedVariableCheckerTest extends CheckerTest {
     @Test
     public void definedVariable() {
         AST ast = CheckUndefinedVariablesFixtures.definedVariable();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertNoErrors(ast.root);
     }
 
     @Test
     public void undefinedVariable() {
         AST ast = CheckUndefinedVariablesFixtures.undefinedVariable();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertHasErrors(ast.root);
     }
 
     @Test
     public void variableInsideScope() {
         AST ast = CheckUndefinedVariablesFixtures.variableInsideScope();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertNoErrors(ast.root);
     }
 
     @Test
     public void variableInWrongScope() {
         AST ast = CheckUndefinedVariablesFixtures.variableInsideWrongScope();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertHasErrors(ast.root);
     }
 
     @Test
     public void variableInsideIfScope() {
         AST ast = CheckUndefinedVariablesFixtures.variableInsideIfScope();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertNoErrors(ast.root);
     }
 
     @Test
     public void variableInWrongIfScope() {
         AST ast = CheckUndefinedVariablesFixtures.variableInsideWrongIfScope();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertHasErrors(ast.root);
     }
 }

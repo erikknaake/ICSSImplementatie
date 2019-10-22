@@ -12,14 +12,14 @@ public class DeclarationTypeCheckerTest extends CheckerTest {
     @Test
     public void wrongType() {
         AST ast = CheckDeclarationTypeFixtures.wrongType();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertNoErrors(ast.root);
     }
 
     @Test
     public void correctType() {
         AST ast = CheckDeclarationTypeFixtures.correctType();
-        checker.check(ast);
+        checker.checkNode(ast);
         assertNoErrors(ast.root);
     }
 }
