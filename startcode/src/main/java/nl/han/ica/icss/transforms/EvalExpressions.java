@@ -27,6 +27,7 @@ public class EvalExpressions implements Transform {
 
     private void replaceExpressions(ASTNode node) {
         if (node instanceof VariableAssignment) {
+            // Prevent concurrent modification exception
             walker.remove();
             AssignVariableAndRemoveVariableDeclaration(walker.getParent(), (VariableAssignment) node);
         }

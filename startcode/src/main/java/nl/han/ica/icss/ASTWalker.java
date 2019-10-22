@@ -4,19 +4,25 @@ import nl.han.ica.icss.ast.*;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Stack;
 
+/**
+ * Walks an AST tree while calling methods on entering and exiting scopes and also calls methods when entering an ASTNode
+ */
 public class ASTWalker {
 
-    private IWalkAction onEnterScope, onExitNode, onExitScope;
+    private IWalkAction onEnterScope, onEnterNode, onExitScope;
+    // Keeps track of parent nodes, so replacements can be made inside transformers
     private LinkedList<ASTNode> parents;
-    private LinkedList<Iterator<ASTNode>> iterators;
+    // Keeps track of iterators, so child can be removed without causing concurrent modification exceptions
+    private Stack<Iterator<ASTNode>> iterators;
 
-    public ASTWalker(IWalkAction onEnterScope, IWalkAction onExitNode, IWalkAction onExitScope) {
+    public ASTWalker(IWalkAction onEnterScope, IWalkAction onEnterNode, IWalkAction onExitScope) {
         this.onEnterScope = onEnterScope;
-        this.onExitNode = onExitNode;
+        this.onEnterNode = onEnterNode;
         this.onExitScope = onExitScope;
         parents = new LinkedList<>();
-        iterators = new LinkedList<>();
+        iterators = new Stack<>();
     }
 
     public void walk(AST ast) {
@@ -29,17 +35,22 @@ public class ASTWalker {
         if(isScope)
             onEnterScope.step(node);
 
-        onExitNode.step(node);
-        Iterator<ASTNode> currentIterator = node.getChildren().iterator();
-        iterators.addLast(currentIterator);
-        while(currentIterator.hasNext()) {
-            walk(currentIterator.next());
-        }
-        iterators.removeLast();
+        onEnterNode.step(node);
+
+        walkChildren(node);
 
         if(isScope)
             onExitScope.step(node);
         parents.removeLast();
+    }
+
+    private void walkChildren(ASTNode node) {
+        Iterator<ASTNode> currentIterator = node.getChildren().iterator();
+        iterators.push(currentIterator);
+        while(currentIterator.hasNext()) {
+            walk(currentIterator.next());
+        }
+        iterators.pop();
     }
 
     public ASTNode getParent() {
@@ -47,6 +58,6 @@ public class ASTWalker {
     }
 
     public void remove() {
-        iterators.getLast().remove();
+        iterators.peek().remove();
     }
 }
