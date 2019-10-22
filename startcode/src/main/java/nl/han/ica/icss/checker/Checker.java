@@ -38,7 +38,7 @@ public class Checker {
                 (ASTNode node) -> variableDefiner.popScope());
     }
 
-    public void checkNode(AST ast) {
+    public void check(AST ast) {
         variableDefiner.clear();
         walker.walk(ast);
     }

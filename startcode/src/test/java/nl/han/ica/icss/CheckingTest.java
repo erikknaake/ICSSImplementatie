@@ -1,13 +1,15 @@
-package nl.han.ica.icss.checker;
+package nl.han.ica.icss;
 
 import nl.han.ica.icss.ast.ASTNode;
+import nl.han.ica.icss.checker.Checker;
+import nl.han.ica.icss.checker.IChecker;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class CheckerTest {
+public abstract class CheckingTest {
     protected Checker checker;
     protected ArrayList<IChecker> checkers;
     protected abstract void addCheckers();
