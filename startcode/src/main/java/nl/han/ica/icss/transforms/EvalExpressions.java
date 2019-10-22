@@ -1,46 +1,37 @@
 package nl.han.ica.icss.transforms;
 
+import nl.han.ica.icss.ASTWalker;
 import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.typesystem.VariableValues;
-
-import java.util.Iterator;
 
 
 public class EvalExpressions implements Transform {
 
     private VariableValues variableValues;
+    private ASTWalker walker;
 
     public EvalExpressions() {
         variableValues = VariableValues.getInstance();
         variableValues.clear();
+
+        walker = new ASTWalker(
+                (ASTNode node) -> variableValues.pushScope(),
+                this::replaceExpressions,
+                (ASTNode node) -> variableValues.popScope());
     }
 
     @Override
     public void apply(AST ast) {
-        replaceExpressions(ast.root);
+        walker.walk(ast);
     }
 
     private void replaceExpressions(ASTNode node) {
-        boolean isScope = node instanceof Stylerule || node instanceof IfClause || node instanceof ElseClause;
-        if (isScope) {
-            variableValues.pushScope();
+        if (node instanceof VariableAssignment) {
+            walker.remove();
+            AssignVariableAndRemoveVariableDeclaration(walker.getParent(), (VariableAssignment) node);
         }
-        // Use of iterator to prevent ConcurrentModification when removing a variable assignment
-        Iterator<ASTNode> iterator = node.getChildren().iterator();
-        while (iterator.hasNext()) {
-            ASTNode child = iterator.next();
-            replaceExpressions(child);
-            if (child instanceof VariableAssignment) {
-                iterator.remove();
-                AssignVariableAndRemoveVariableDeclaration(node, (VariableAssignment) child);
-            }
-            if (child instanceof Expression) {
-                replaceExpressionWithLiteral((Expression) child, node);
-            }
-        }
-
-        if(isScope) {
-            variableValues.popScope();
+        if (node instanceof Expression) {
+            replaceExpressionWithLiteral((Expression) node, walker.getParent());
         }
     }
 
@@ -58,10 +49,10 @@ public class EvalExpressions implements Transform {
                 variableAssignment.expression.eval());
     }
 
-    private void replaceExpressionWithLiteral(Expression astNode, ASTNode parent) {
-        Literal value = astNode.eval();
-        if (astNode instanceof Operation || (astNode instanceof VariableReference && !(parent instanceof VariableAssignment))) {
-            NodeTransformer.replaceChild(parent, astNode, value);
+    private void replaceExpressionWithLiteral(Expression child, ASTNode parent) {
+        Literal value = child.eval();
+        if (child instanceof Operation || (child instanceof VariableReference && !(parent instanceof VariableAssignment))) {
+            NodeTransformer.replaceChild(parent, child, value);
         }
     }
 
