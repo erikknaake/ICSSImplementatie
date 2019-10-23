@@ -125,4 +125,23 @@ public class EndToEndFixtures {
                 "}\n" +
                 "\n";
     }
+
+    public static String hardTest() {
+        return "p {\n" +
+                "\tbackground-color: #ffffff;\n" +
+                "\twidth: 500px;\n" +
+                "\theight: 6000px;\n" +
+                "\tcolor: #124532;\n" +
+                "\tbackground-color: #ff0000;\n" +
+                "\twidth: 5%;\n" +
+                "}\n" +
+                "\n" +
+                "a {\n" +
+                "\theight: 10px;\n" +
+                "\tcolor: #ff0000;\n" +
+                "\twidth: 6200px;\n" +
+                "\twidth: 0px;\n" +
+                "}\n" +
+                "\n";
+    }
 }

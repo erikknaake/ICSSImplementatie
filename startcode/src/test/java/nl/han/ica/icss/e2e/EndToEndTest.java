@@ -82,4 +82,9 @@ public class EndToEndTest extends CheckingTest {
     void testDirectIdChild() throws IOException {
         doPipeLine("directidchild.icss", EndToEndFixtures.directIdChild());
     }
+
+    @Test
+    void testHardTest() throws IOException {
+        doPipeLine("hard_test.icss", EndToEndFixtures.hardTest());
+    }
 }

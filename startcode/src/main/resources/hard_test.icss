@@ -1,0 +1,33 @@
+LinkColor := #ff0000;
+Testvar := 500px;
+ParWidth := Testvar;
+AdjustColor := TRUE;
+UseLinkColor:= FALSE;
+
+
+p {
+    background-color: #ffffff;
+    width: ParWidth;
+    if[AdjustColor] {
+        ParWidth := 300px * 20;
+        UseLinkColor := TRUE;
+        height: ParWidth;
+        color: #124532;
+        if[UseLinkColor]{
+            ScopeVar:= 10%;
+            MyVar:= ScopeVar - 5%;
+            background-color: LinkColor;
+            width: MyVar;
+        }
+    }
+}
+a {
+    ScopeVar2:= 10px;
+        TestBool := TRUE;
+    height: ScopeVar2;
+    color: LinkColor;
+    width: ParWidth + 20px * 10;
+        if[TestBool]{
+        width: ScopeVar2 - 2 * 5px;
+    }
+}

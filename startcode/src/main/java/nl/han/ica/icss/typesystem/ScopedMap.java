@@ -26,7 +26,15 @@ public class ScopedMap<K, V> implements IScopedMap<K, V> {
     }
 
     public void put(K key, V value) {
-        scopedMap.getFirst().put(key, value);
+        boolean hasPut = false;
+        for (Map<K, V> map : scopedMap) {
+            if (map.containsKey(key)) {
+                hasPut = true;
+                map.put(key, value);
+            }
+        }
+        if(!hasPut)
+            scopedMap.getFirst().put(key, value);
     }
 
     public V get(K key) {
