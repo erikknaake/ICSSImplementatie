@@ -1,27 +1,28 @@
 package nl.han.ica.icss.transforms;
 
+import nl.han.ica.icss.ASTWalker;
 import nl.han.ica.icss.ast.AST;
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.selectors.CompositeSelector;
 import nl.han.ica.icss.ast.selectors.IdSelector;
 
 public class OptimiseIdAsDirectChild implements Transform {
+    private ASTWalker walker;
+
+    public OptimiseIdAsDirectChild() {
+        walker = new ASTWalker(this::optimiseIdAsDirectChild);
+    }
+
     @Override
     public void apply(AST ast) {
-        optimiseIdAsDirectChild(ast.root);
+        walker.walk(ast);
     }
 
     private void optimiseIdAsDirectChild(ASTNode node) {
-        for (ASTNode child : node.getChildren()) {
-            if (child instanceof CompositeSelector) {
-                CompositeSelector compositeSelector = (CompositeSelector) child;
-                if (compositeSelector.operator.operator.equals(">") && compositeSelector.rhs instanceof IdSelector) {
-                    optimiseId(node, compositeSelector, (IdSelector) compositeSelector.rhs);
-                } else {
-                    optimiseIdAsDirectChild(child);
-                }
-            } else {
-                optimiseIdAsDirectChild(child);
+        if (node instanceof CompositeSelector) {
+            CompositeSelector compositeSelector = (CompositeSelector) node;
+            if (compositeSelector.operator.operator.equals(">") && compositeSelector.rhs instanceof IdSelector) {
+                optimiseId(walker.getParent(), compositeSelector, (IdSelector) compositeSelector.rhs);
             }
         }
     }

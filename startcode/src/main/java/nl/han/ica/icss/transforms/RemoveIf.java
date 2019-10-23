@@ -1,13 +1,20 @@
 package nl.han.ica.icss.transforms;
 
+import nl.han.ica.icss.ASTWalker;
 import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.literals.BoolLiteral;
 
 public class RemoveIf implements Transform {
 
+    private ASTWalker walker;
+
+    public RemoveIf() {
+        walker = new ASTWalker(this::removeIfs);
+    }
+
     @Override
     public void apply(AST ast) {
-        removeIfs(ast.root);
+        walker.walk(ast);
     }
 
     private void removeIfs(ASTNode node) {
